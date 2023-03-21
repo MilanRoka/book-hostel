@@ -4,216 +4,225 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
-
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import IconButton from '@mui/material/IconButton';
-import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
-import SkipNextIcon from '@mui/icons-material/SkipNext';
+import Input from '@mui/material/Input'
+import PeopleIcon from '@mui/icons-material/People';
+import PlaceIcon from '@mui/icons-material/Place';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import SearchIcon from '@mui/icons-material/Search';
+import { styled } from '@mui/material/styles';
+import ButtonBase from '@mui/material/ButtonBase';
+import Backdrop from '@mui/material/Backdrop';
 
+const images = [
+  {
+    image: '/card2.jpg',
+    title: 'Kathmandu',
+    width: '20%',
+  },
+  {
+    image: '/card1.jpg',
+    title: 'Pokhara',
+    width: '20%',
+  },
+  {
+    image: '/card3.jpg',
+    title: 'Bhaktapur',
+    width: '20%',
+  },
+  {
+    image: '/card4.jpg',
+    title: 'Lalitpur',
+    width: '20%',
+  }
+];
+
+const ImageButton = styled(ButtonBase)(({ theme }) => ({
+  position: 'relative',
+  height: 200,
+  [theme.breakpoints.down('sm')]: {
+    width: '100% !important', // Overrides inline-style
+    height: 100,
+  },
+  '&:hover, &.Mui-focusVisible': {
+    zIndex: 1,
+    '& .MuiImageBackdrop-root': {
+      opacity: 0.15,
+    },
+    '& .MuiImageMarked-root': {
+      opacity: 0,
+    },
+    '& .MuiTypography-root': {
+      border: '4px solid currentColor',
+    },
+  },
+}));
+
+const ImageSrc = styled('span')({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundSize: 'cover',
+  backgroundPosition: 'center 40%',
+});
+
+const Image = styled('span')(({ theme }) => ({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'center',
+  color: theme.palette.common.white,
+}));
+
+const ImageBackdrop = styled('span')(({ theme }) => ({
+  position: 'absolute',
+  left: 0,
+  right: 0,
+  top: 0,
+  bottom: 0,
+  backgroundColor: theme.palette.common.black,
+  opacity: 0.4,
+  transition: theme.transitions.create('opacity'),
+}));
+
+const ImageMarked = styled('span')(({ theme }) => ({
+  height: 3,
+  width: 18,
+  backgroundColor: theme.palette.common.white,
+  position: 'absolute',
+  bottom: -2,
+  left: 'calc(50% - 9px)',
+  transition: theme.transitions.create('opacity'),
+}));
+
+
+const data = [
+  {
+    title: 'Hostel Yog',
+    description: 'Thamel, Kathmandu',
+    image: 'http://localhost:5173/card1.jpg',
+  },
+  {
+    title: 'Fireflies BagPackers',
+    description: 'Paknajol, Kathmandu',
+    image: 'http://localhost:5173/card2.jpg',
+  },
+  {
+    title: 'Vision Hostel',
+    description: 'Ghattekulo, Kathmandu',
+    image: 'http://localhost:5173/card2.jpg',
+  },
+  {
+    title: 'AllStar Home',
+    description: 'New Road, Pokhara',
+    image: 'http://localhost:5173/card2.jpg',
+  },
+  {
+    title: 'Classic Stay',
+    description: 'Kapan, Butwal',
+    image: 'http://localhost:5173/card2.jpg',
+  },
+  {
+    title: 'Ruby Hostel',
+    description: 'Gwarko, Lalitpur',
+    image: 'http://localhost:5173/card2.jpg',
+  },
+  {
+    title: 'Fire Bird Hostel',
+    description: 'Thimi, Bhaktapur',
+    image: 'http://localhost:5173/card2.jpg',
+  },
+  {
+    title: 'Hostel Cube',
+    description: 'Devis Fall, Pokhara ',
+    image: 'http://localhost:5173/card2.jpg',
+  }
+]
 
 const homeitems = () => {
   const theme = useTheme();
   return (
     <>
-      <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',margin:50}} >Explore</h1>
-      <div style={{ display: 'flex', justifyContent: 'center' }}>
-        <Card sx={{ display: 'flex' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flex: '1 0 auto' }}>
-              <Typography component="div" variant="h5">
-                Naxal
-              </Typography>
-              <Typography variant="subtitle1" color="text.secondary" component="div">
-                Explore inside Naxal area.
-              </Typography>
-            </CardContent>
-            <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-              <IconButton aria-label="previous">
-                {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-              </IconButton>
-              <IconButton aria-label="play/pause">
-                <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-              </IconButton>
-              <IconButton aria-label="next">
-                {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-              </IconButton>
-            </Box>
-          </Box>
-          <CardMedia
-            component="img"
-            sx={{ width: 300 }}
-            image="http://localhost:5173/card1.jpg"
-            alt="Live from space album cover"
-          />
-        </Card>
-
-        <Card sx={{ display: 'flex' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flex: '1 0 auto' }}>
-              <Typography component="div" variant="h5">
-                Naxal
-              </Typography>
-              <Typography variant="subtitle1" color="text.secondary" component="div">
-                Explore inside Naxal area.
-              </Typography>
-            </CardContent>
-            <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-              <IconButton aria-label="previous">
-                {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-              </IconButton>
-              <IconButton aria-label="play/pause">
-                <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-              </IconButton>
-              <IconButton aria-label="next">
-                {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-              </IconButton>
-            </Box>
-          </Box>
-          <CardMedia
-            component="img"
-            sx={{ width: 300 }}
-            image="http://localhost:5173/card1.jpg"
-            alt="Live from space album cover"
-          />
-        </Card>
-
-        <Card sx={{ display: 'flex' }}>
-          <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-            <CardContent sx={{ flex: '1 0 auto' }}>
-              <Typography component="div" variant="h5">
-                Naxal
-              </Typography>
-              <Typography variant="subtitle1" color="text.secondary" component="div">
-                Explore inside Naxal area.
-              </Typography>
-            </CardContent>
-            <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
-              <IconButton aria-label="previous">
-                {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
-              </IconButton>
-              <IconButton aria-label="play/pause">
-                <PlayArrowIcon sx={{ height: 38, width: 38 }} />
-              </IconButton>
-              <IconButton aria-label="next">
-                {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
-              </IconButton>
-            </Box>
-          </Box>
-          <CardMedia
-            component="img"
-            sx={{ width: 300 }}
-            image="http://localhost:5173/card1.jpg"
-            alt="Live from space album cover"
-          />
-        </Card>
-
+      <div>
+        {/* image with button */}
+        <Box style={{ display: 'flex', gap: 30, flexWrap: 'wrap', marginTop: 50, justifyContent: 'center', padding: 15 }}>
+          {images.map((image) => (
+            <ImageButton
+              focusRipple
+              key={image.title}
+              style={{
+                width: image.width,
+              }}
+            >
+              <ImageSrc style={{ backgroundImage: `url(${image.image})` }} />
+              <ImageBackdrop className="MuiImageBackdrop-root" />
+              <Image>
+                <Typography
+                  component="span"
+                  variant="subtitle1"
+                  color="inherit"
+                  sx={{
+                    position: 'relative',
+                    p: 4,
+                    pt: 2,
+                    pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+                  }}
+                >
+                  {image.title}
+                  <ImageMarked className="MuiImageMarked-root" />
+                </Typography>
+              </Image>
+            </ImageButton>
+          ))}
+        </Box>
       </div>
-      <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', }}>Popular Picks</h1>
-      <div style={{ display: 'flex', gap: 30, flexDirection: 'row', marginTop: 50, justifyContent: 'center' }}>
-        <Card sx={{ maxWidth: 345 }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="300"
-              image="http://localhost:5173/card1.jpg"
-              alt="green iguana" />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Hostel Yog
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over 6,000
-                species, ranging across all continents except Antarctica
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Book Now
-            </Button>
-          </CardActions>
-        </Card>
-
-        <Card sx={{ maxWidth: 345 }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="300"
-              image="http://localhost:5173/card2.jpg"
-              alt="green iguana" />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Fireflies BagPackers
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over 6,000
-                species, ranging across all continents except Antarctica
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Book Now
-            </Button>
-          </CardActions>
-        </Card>
-
-        <Card sx={{ maxWidth: 345 }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="300"
-              image="http://localhost:5173/card3.jpg"
-              alt="green iguana" />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                Ojashwi Hostel
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over 6,000
-                species, ranging across all continents except Antarctica
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Book Now
-            </Button>
-          </CardActions>
-        </Card>
-
-        <Card sx={{ maxWidth: 345 }}>
-          <CardActionArea>
-            <CardMedia
-              component="img"
-              height="300"
-              image="http://localhost:5173/card4.jpg"
-              alt="green iguana" />
-            <CardContent>
-              <Typography gutterBottom variant="h5" component="div">
-                TheRokx
-              </Typography>
-              <Typography variant="body2" color="text.secondary">
-                Lizards are a widespread group of squamate reptiles, with over 6,000
-                species, ranging across all continents except Antarctica
-              </Typography>
-            </CardContent>
-          </CardActionArea>
-          <CardActions>
-            <Button size="small" color="primary">
-              Book Now
-            </Button>
-          </CardActions>
-        </Card>
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 10, flexDirection: 'column' }} >
+        <div>
+          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 10 }} >Popular Picks</h1>
+        </div>
+        <div style={{ display: 'flex', gap: 30, flexWrap: 'wrap', marginTop: 50, justifyContent: 'center' }}>
+          {
+            data.map((item) => {
+              return (
+                <Card sx={{ maxWidth: 345 }}>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      height="300"
+                      image={item.image}
+                      alt="green iguana" />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="div">
+                        {item.title}
+                      </Typography>
+                      <Typography variant="body2" color="text.secondary">
+                        {item.description}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button variant='contained' size="small" color="success">
+                      Book Now
+                    </Button>
+                  </CardActions>
+                </Card>
+              )
+            }
+            )
+          }
+        </div>
       </div>
     </>
-
-
-
-
   )
-}
 
+};
 export default homeitems

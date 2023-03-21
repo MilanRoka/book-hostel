@@ -1,66 +1,62 @@
 import * as React from 'react';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
+import ButtonGroup from '@mui/material/ButtonGroup';
 import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Link from '@mui/material/Link';
 import GlobalStyles from '@mui/material/GlobalStyles';
-import Container from '@mui/material/Container';
-import MapsHomeWorkOutlinedIcon from '@mui/icons-material/MapsHomeWorkOutlined';
+import HolidayVillageTwoToneIcon from '@mui/icons-material/HolidayVillageTwoTone';
 
 function Navbar() {
   return (
-    <React.Fragment>
-      <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
-      <CssBaseline />
-      <AppBar
-        position="static"
-        color="default"
-        elevation={0}
-        sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-      >
-        <Toolbar sx={{ flexWrap: 'wrap' }}>
-        <MapsHomeWorkOutlinedIcon sx={{fontSize:50}}/>
-          <Typography variant="h6" color="inherit" noWrap sx={{ flexGrow: 1 }}>
-            bookHostel.
-          </Typography>
-          <nav>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="/Home"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              Home
-            </Link>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              List Your Property
-            </Link>
-            <Link
-              variant="button"
-              color="text.primary"
-              href="#"
-              sx={{ my: 1, mx: 1.5 }}
-            >
-              About Us
-            </Link>
-          </nav>
-          <Button href="/SignUp" variant="outlined" sx={{ my: 1, mx: 1.5 }}>
-            Register
-          </Button>
-        </Toolbar>
-      </AppBar>
-      
-      
-    </React.Fragment>
+    <div>
+      <React.Fragment>
+        <GlobalStyles styles={{ ul: { margin: 0, padding: 0, listStyle: 'none' } }} />
+        <AppBar
+          position="static"
+          color="default"
+          elevation={0}
+          sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
+          style={{ background: 'transparent' }}
+        >
+          <Toolbar sx={{ flexWrap: 'wrap' }}>
+            <HolidayVillageTwoToneIcon sx={{ fontSize: 50 }} />
+            <Typography variant="h6" noWrap sx={{
+              mr: 2, pt:1.5,
+              display: 'flex',
+              flexGrow: 1,
+              fontFamily: 'Arial, sans-serif',
+              fontSize: '25px',
+              fontWeight: 'bold',
+              letterSpacing: '1px'
+            }}>
+              bookHostel.
+            </Typography>
+            <nav>
+              <Link variant="button" href="/" sx={{ my: 1, mx: 1.5 }}>
+                Home
+              </Link>
+              <Link variant="button" href="/hostels" sx={{ my: 1, mx: 1.5 }}>
+                Hostels
+              </Link>
+              <Link variant="button" href="/registrationform" sx={{ my: 1, mx: 1.5 }}>
+                List Your Property
+              </Link>
+              <ButtonGroup
+                aria-label="text button group"
+                variant="text"
+                sx={{ my: 1, mx: 1.5 }}
+                style={{ padding: 10, borderRadius: 10 }}
+              >
+                <Button href="/SignUp">Register</Button>
+                <Button href="/SignIn">Sign in</Button>
+              </ButtonGroup>
+            </nav>
+          </Toolbar>
+        </AppBar>
+      </React.Fragment>
+    </div>
   );
 }
-
-export default Navbar
+export default Navbar;

@@ -20,57 +20,76 @@ export default function Forgotpw() {
     const data = new FormData(event.currentTarget);
     console.log({
       email: data.get('email'),
-      
+
     });
   };
 
   return (
-    <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
-        <CssBaseline />
-        <Box
-          sx={{
-            marginTop: 8,
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
+    <div>
+      <div style={{ flex: 1 }}>
+        <img
+          style={{
+            height: 500,
+            objectFit: 'cover',
+            width: '40%',
+            position: 'absolute',
+            top: 150,
+            left: 150,
+
+
           }}
-        >
-          
-          <Typography component="h1" variant="h7" sx={{fontWeight: 'bold'}}>
-            Forgot Password
-          </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-            <TextField
-              margin="normal"
-              required
-              fullWidth
-              id="email"
-              label="Email Address"
-              name="email"
-              autoComplete="email"
-              autoFocus
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, backgroundColor:'black'}}
-            >
-              
-              Send Confirmation Code!
-            </Button>
-            <Grid container>
-              <Grid item>
-                <Link href="/SignUp" variant="contained">
-                  {"Don't have an account? Sign Up"}
-                </Link>
+
+          src='http://localhost:5173/undraw1.png'
+        />
+      </div>
+      <div >
+        <Container component="main" maxWidth="xs">
+          <CssBaseline />
+          <Box
+            sx={{
+              marginTop: 8,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+
+            <Typography component="h1" variant="h5" sx={{ fontWeight: 'bold' }}>
+              Forgot Password
+            </Typography>
+            <Box component="form" noValidate sx={{ mt: 1 }}>
+              <TextField
+                margin="normal"
+                required
+                fullWidth
+                id="email"
+                label="Email Address"
+                name="email"
+                autoComplete="email"
+                autoFocus
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                sx={{ mt: 3, mb: 2, backgroundColor: 'black' }}
+              >
+
+                Send Confirmation Code!
+              </Button>
+              <Grid container>
+                <Grid item>
+                  <Link href="/SignUp" variant="contained">
+                    {"Don't have an account? Sign Up"}
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
+            </Box>
           </Box>
-        </Box>
-        
-      </Container>
-    </ThemeProvider>
+
+        </Container>
+      </div>
+    </div>
+
   );
 }
