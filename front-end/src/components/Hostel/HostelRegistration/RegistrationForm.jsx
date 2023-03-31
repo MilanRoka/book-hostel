@@ -20,12 +20,6 @@ import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { borderRight } from '@mui/system';
 
-
-
-
-
-
-
 export default function RegistrationForm() {
 
     const [showPassword, setShowPassword] = React.useState(false);
@@ -40,8 +34,6 @@ export default function RegistrationForm() {
             <Alert severity="success">This is a success alert — check it out!</Alert>
         )
     }
-
-
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -57,7 +49,6 @@ export default function RegistrationForm() {
         }
         console.log(
             payload
-
         )
         axios
             .post("http://localhost:3000/property/create", payload
@@ -82,10 +73,7 @@ export default function RegistrationForm() {
                             position: 'absolute',
                             top: 150,
                             left: 150,
-
-
                         }}
-
                         src='http://localhost:5173/undraw1.png'
                     />
                 </div>
@@ -109,7 +97,7 @@ export default function RegistrationForm() {
                                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                                     <Grid container spacing={3}
                                     >
-                                    
+
                                         <Grid item xs={12}>
                                             <TextField
                                                 required
@@ -185,6 +173,36 @@ export default function RegistrationForm() {
                                             </FormControl>
                                         </Grid>
                                     </Grid>
+
+                                    <Grid item xs={12}>
+
+                                        <label htmlFor="image-upload">
+                                            <Button
+                                                variant='outlined'
+                                                component="span"
+                                                style={{
+                                                    backgroundColor: 'lightBlue',
+                                                    color: 'white',
+                                                    marginTop: 20,
+                                                    marginBottom: 20
+
+                                                }}
+                                            >
+                                                Upload Registration Image
+                                            </Button>
+
+                                            <input
+                                                id="image-upload"
+                                                name="image"
+                                                type="file"
+                                                accept=".jpg, .jpeg, .png"
+                                                style={{ display: 'none' }}
+                                                onChange={(e) => handleImageUpload(e.target.files[0])}
+                                            />
+                                        </label>
+                                    </Grid>
+
+
                                     <div style={{ alignContent: 'center', display: 'flex', justifyContent: 'center', marginTop: 40 }}>
                                         <Button variant="contained" type='submit' sx={{ backgroundColor: 'green' }}>SUBMIT</Button>
                                     </div>

@@ -10,26 +10,18 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Alert } from '@mui/material';
 import axios from 'axios'
-
 import { useNavigate } from 'react-router-dom';
 
-
-
 const theme = createTheme();
-
 export default function SignIn() {
-
-
+  const [isSuccess, setIsSuccess] = React.useState(false);
 
   const navigate = useNavigate()
-
   const success = () => {
     return (
       <Alert severity="success">This is a success alert — check it out!</Alert>
     )
   }
-
-
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -47,18 +39,12 @@ export default function SignIn() {
         })
       .then((res) => {
         console.log(res.data.token)
-        sessionStorage.setItem('token', res.data.token)
-        success()
+        localStorage.setItem('token', res.data.token)
+        setIsSuccess(true)
         navigate('/')
-
-
-
-
       })
   };
-
   return (
-
     <div style={{
       flex: 1,
       display: 'flex',
@@ -74,10 +60,7 @@ export default function SignIn() {
             position: 'absolute',
             top: 150,
             left: 150,
-
-
           }}
-
           src='http://localhost:5173/signin1.png'
         />
       </div>
@@ -150,6 +133,7 @@ export default function SignIn() {
           />
         </FormControl> */}
               <Button
+                
                 type="submit"
                 fullWidth
                 variant="contained"

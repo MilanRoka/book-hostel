@@ -3,7 +3,7 @@ import App from "./App"
 import ReactDOM from 'react-dom'
 import React from "react"
 import { createTheme } from "@mui/system"
-
+import "./index.css"
 
 
 const theme = createTheme();

@@ -13,34 +13,31 @@ import Records from './components/Dashboard/Records';
 import Hostels from './components/Hostel/Hostels';
 import RegistrationForm from './components/Hostel/HostelRegistration/RegistrationForm';
 import Searchbar from './components/Navbar/Searchbar';
+import HostelPage from './components/Hostel/HostelPage'
+import '@fontsource/public-sans';
 
 
-
-  const App=()=> {
-   return(
-   <>
-   
-
-   <Router>
-      <Routes>
-
-         <Route exact path='/' element={<Home/>}/>
-         <Route path='/navbar' element={< Navbar/>}/>
-         <Route path='/footer' element={< Footer/>}/>
-         <Route path='/signup' element={<SignUp />} />
-         <Route path='/signin' element={<SignIn />} />
-         <Route path='/forgotpw' element={<Forgotpw />} />
-         <Route path='/dashboard' element={<Dashboard />} />
-         <Route path='/hostels' element={<Hostels />} />
-         <Route element={<Records />} />
-         <Route path='/homeitems' element={<Homeitems />} />
-         <Route path='/searchbar' element={<Searchbar/>}/>
-         <Route path='/registrationform' element={<RegistrationForm/>}/>
-         
-      </Routes>
-   </Router> 
-   </>
+const App = () => {
+   return (
+      <>
+         <Router>
+            <Routes>
+               <Route exact path='/' element={<Home />} />
+               <Route path='/navbar' element={< Navbar />} />
+               <Route path='/footer' element={< Footer />} />
+               <Route path='/signup' element={<SignUp />} />
+               <Route path='/signin' element={<SignIn />} />
+               <Route path='/forgotpw' element={<Forgotpw />} />
+               <Route path='/dashboard' element={<Dashboard />} />
+               <Route path='/hostels' element={<Hostels />} />
+               <Route element={<Records />} />
+               <Route path='/homeitems' element={<Homeitems />} />
+               <Route path='/searchbar' element={<Searchbar />} />
+               <Route path='/register property' element={<RegistrationForm />} />
+               <Route path='/hostelpage' element={<HostelPage />} />
+            </Routes>
+         </Router>
+      </>
    )
 }
-
 export default App;

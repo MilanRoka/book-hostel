@@ -40,7 +40,7 @@ function Navbar() {
               <Link variant="button" href="/hostels" sx={{ my: 1, mx: 1.5 }}>
                 Hostels
               </Link>
-              <Link variant="button" href="/registrationform" sx={{ my: 1, mx: 1.5 }}>
+              <Link variant="button" href="/register property" sx={{ my: 1, mx: 1.5 }}>
                 List Your Property
               </Link>
               <ButtonGroup

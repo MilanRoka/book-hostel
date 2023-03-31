@@ -2,6 +2,7 @@ const express=require("express");
 const mongoose=require("mongoose");
 const cors=require("cors");
 const propertyRoute = require('./routes/property')
+const packageRoute = require('./routes/package')
 
 
 
@@ -21,7 +22,7 @@ const usersRoute = require('./routes/users');
 
 app.use('/users', usersRoute);
 app.use('/property', propertyRoute)
-
+app.use("/package", packageRoute)
 app.get("/post",(req,res)=>{
     res.json("Hello")
 })

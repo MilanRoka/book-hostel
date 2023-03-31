@@ -6,16 +6,8 @@ import Typography from '@mui/material/Typography';
 import { Button, CardActionArea, CardActions } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
-import Input from '@mui/material/Input'
-import PeopleIcon from '@mui/icons-material/People';
-import PlaceIcon from '@mui/icons-material/Place';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
-import FormControl from '@mui/material/FormControl';
-import SearchIcon from '@mui/icons-material/Search';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
-import Backdrop from '@mui/material/Backdrop';
 
 const images = [
   {
@@ -187,7 +179,7 @@ const homeitems = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 10, flexDirection: 'column' }} >
         <div>
-          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 10 }} >Popular Picks</h1>
+          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 1, fontWeight:'bold',fontSize:25 }} >Recent Picks</h1>
         </div>
         <div style={{ display: 'flex', gap: 30, flexWrap: 'wrap', marginTop: 50, justifyContent: 'center' }}>
           {
