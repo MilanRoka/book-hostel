@@ -7,7 +7,7 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Navbar from '../../Navbar/Navbar';
 import Footer from '../../Footer/Footer';
-import { FormControl } from '@mui/material';
+import { FormControl, Snackbar } from '@mui/material';
 import Box from '@mui/material/Box';
 import Visibility from '@mui/icons-material/Visibility';
 import VisibilityOff from '@mui/icons-material/VisibilityOff';
@@ -18,14 +18,25 @@ import InputAdornment from '@mui/material/InputAdornment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
-import { borderRight } from '@mui/system';
+import { useState } from 'react';
+import SuperAdmin from '../../Dashboard/SuperAdmin';
+
+
 
 export default function RegistrationForm() {
 
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const handleImageUpload = (file) => {
+        setSelectedFile(file);
+    }
+
     const [showPassword, setShowPassword] = React.useState(false);
     const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const [open, setOpen] = React.useState(false);
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
+
     };
     const navigate = useNavigate()
 
@@ -34,22 +45,40 @@ export default function RegistrationForm() {
             <Alert severity="success">This is a success alert — check it out!</Alert>
         )
     }
+    React.useEffect(() => {
+        if (open) {
+            setTimeout(() => {
+                setOpen(false)
+            }, 6000)
+        }
+    }, [open])
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
         const payload = {
-            ownerFirstName: data.get('ownerFirstName'),
-            ownerLastName: data.get('ownerLastName'),
             propertyName: data.get('propertyName'),
             email: data.get('email'),
+            phone: data.get('phone'),
             city: data.get('city'),
             state: data.get('state'),
-            zip: data.get('zip'),
-            password: data.get('password')
+            address1: data.get('address1'),
+            street: data.get('street'),
+            password: data.get('password'),
+            confirmPassword: data.get('confirmPassword'),
+            image: data.get('image')
         }
-        console.log(
-            payload
-        )
+
+        console.log(payload)
+        for (let key in payload) {
+            console.log(key, payload[key])
+            // if (!!payload[key]) {
+
+            //     // setOpen(true);
+            //     console.log("hi mom ")
+            //     return;
+            // }
+        }
+
         axios
             .post("http://localhost:3000/property/create", payload
             )
@@ -57,22 +86,28 @@ export default function RegistrationForm() {
                 // console.log(res.data.token)
                 // sessionStorage.setItem('token', res.data.token)
                 success()
-                navigate('/dashboard')
+                navigate('/superadmin')
             })
     };
     return (
         <>
             <Navbar />
+            <Snackbar open={open} autoHideDuration={6000} onClose={() => setOpen(false)} >
+                <Alert onClose={() => setOpen(false)} severity="error" sx={{ width: '100%' }}>
+                    Please fill out the form properly
+                </Alert>
+            </Snackbar>
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
                 <div style={{ flex: 1 }}>
                     <img
                         style={{
-                            height: 500,
-                            objectFit: 'cover',
-                            width: '40%',
+                            height: 'auto',
+                            maxWidth: '100%',
                             position: 'absolute',
-                            top: 150,
-                            left: 150,
+                            top: '50%',
+                            left: '30%',
+                            transform: 'translate(-50%, -50%)',
+                            width: '40%',
                         }}
                         src='http://localhost:5173/undraw1.png'
                     />
@@ -101,8 +136,8 @@ export default function RegistrationForm() {
                                         <Grid item xs={12}>
                                             <TextField
                                                 required
-                                                id="property1"
-                                                name="property1"
+                                                id="propertyName"
+                                                name="propertyName"
                                                 label="Property Name"
                                                 fullWidth
                                                 autoComplete="shipping address-line1"
@@ -115,6 +150,17 @@ export default function RegistrationForm() {
                                                 id="email"
                                                 name="email"
                                                 label="Email"
+                                                fullWidth
+                                                autoComplete="shipping address-line1"
+                                                // {...register("email")}
+                                                variant="standard" />
+                                        </Grid>
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                required
+                                                id="phone"
+                                                name="phone"
+                                                label="Phone Number"
                                                 fullWidth
                                                 autoComplete="shipping address-line1"
                                                 // {...register("email")}
@@ -143,12 +189,21 @@ export default function RegistrationForm() {
                                         <Grid item xs={12} sm={6}>
                                             <TextField
                                                 required
-                                                id="zip"
-                                                name="zip"
-                                                label="Zip / Postal code"
+                                                id="address1"
+                                                name="address1"
+                                                label="Address Line1"
                                                 fullWidth
-                                                autoComplete="shipping postal-code"
-                                                // {...register("zip")}
+                                                autoComplete="shipping address-level2"
+                                                // {...register("city")}
+                                                variant="standard" />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                id="street"
+                                                name="street"
+                                                label="Street"
+                                                fullWidth
+                                                // {...register("state")}
                                                 variant="standard" />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
@@ -172,11 +227,30 @@ export default function RegistrationForm() {
                                                 />
                                             </FormControl>
                                         </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <FormControl variant="standard">
+                                                <InputLabel htmlFor="standard-adornment-password">Confirm Password</InputLabel>
+                                                <Input
+                                                    name="confirmPassword"
+                                                    id="standard-adornment-confirmPassword"
+                                                    type={showPassword ? 'text' : 'password'}
+                                                    endAdornment={
+                                                        <InputAdornment position="end">
+                                                            <IconButton
+                                                                aria-label="toggle password visibility"
+                                                                onClick={handleClickShowPassword}
+                                                                onMouseDown={handleMouseDownPassword}
+                                                            >
+                                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                            </IconButton>
+                                                        </InputAdornment>
+                                                    }
+                                                />
+                                            </FormControl>
+                                        </Grid>
                                     </Grid>
-
                                     <Grid item xs={12}>
-
-                                        <label htmlFor="image-upload">
+                                        <label htmlFor="image">
                                             <Button
                                                 variant='outlined'
                                                 component="span"
@@ -185,24 +259,21 @@ export default function RegistrationForm() {
                                                     color: 'white',
                                                     marginTop: 20,
                                                     marginBottom: 20
-
-                                                }}
-                                            >
-                                                Upload Registration Image
+                                                }}>
+                                                Registration Image
                                             </Button>
-
                                             <input
-                                                id="image-upload"
+                                                id="image"
                                                 name="image"
                                                 type="file"
                                                 accept=".jpg, .jpeg, .png"
                                                 style={{ display: 'none' }}
-                                                onChange={(e) => handleImageUpload(e.target.files[0])}
-                                            />
+                                                onChange={(e) => handleImageUpload(e.target.files[0])} />
                                         </label>
+                                        {selectedFile && (
+                                            <p style={{fontStyle:'italic',color:'blue'}}>{selectedFile.name}</p>
+                                        )}
                                     </Grid>
-
-
                                     <div style={{ alignContent: 'center', display: 'flex', justifyContent: 'center', marginTop: 40 }}>
                                         <Button variant="contained" type='submit' sx={{ backgroundColor: 'green' }}>SUBMIT</Button>
                                     </div>
@@ -213,7 +284,6 @@ export default function RegistrationForm() {
                 </div>
             </div>
             <Footer />
-
         </>
     );
 }

@@ -140,7 +140,7 @@ const Searchbar = () => {
             endIcon={<SearchIcon />}
             style={{
               borderRadius: 10,
-              backgroundColor: '#008080',
+              backgroundColor: 'green',
               color: '#fff',
               fontWeight: 'bold',
               fontSize: 14,

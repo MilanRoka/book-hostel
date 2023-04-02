@@ -15,6 +15,7 @@ import RegistrationForm from './components/Hostel/HostelRegistration/Registratio
 import Searchbar from './components/Navbar/Searchbar';
 import HostelPage from './components/Hostel/HostelPage'
 import '@fontsource/public-sans';
+import SuperAdmin from './components/Dashboard/SuperAdmin';
 
 
 const App = () => {
@@ -35,6 +36,7 @@ const App = () => {
                <Route path='/searchbar' element={<Searchbar />} />
                <Route path='/register property' element={<RegistrationForm />} />
                <Route path='/hostelpage' element={<HostelPage />} />
+               <Route path ='/superadmin' element={<SuperAdmin />}/>
             </Routes>
          </Router>
       </>

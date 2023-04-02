@@ -77,7 +77,6 @@ export default function SignIn() {
         <Container
           component="main"
           maxWidth="xs"
-
         >
           <CssBaseline />
           <Typography component="h1" variant="h7" sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
