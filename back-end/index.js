@@ -16,8 +16,6 @@ const app = express();
 app.use(cors(corsOptions));
 app.use(express.json())
 
-
-
 const usersRoute = require('./routes/users');
 
 app.use('/users', usersRoute);
@@ -26,11 +24,8 @@ app.use("/package", packageRoute)
 app.get("/post",(req,res)=>{
     res.json("Hello")
 })
-
-
 app.listen(3000,()=>{
     console.log("Port running on 3000.");
-
 })
 mongoose.connect(process.env.dbConnect, {useNewUrlParser:true}, ()=>{
     console.log("db connected");

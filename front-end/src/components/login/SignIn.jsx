@@ -14,19 +14,27 @@ import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLoginMutation } from '../App/slice/authSlice';
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 const theme = createTheme();
 export default function SignIn() {
+  const [isSuccess, setIsSuccess] = React.useState(false)
+  const [email, setEmail] = React.useState('')
+  const [password, setPassword] = React.useState('')
+  const dispatch = useDispatch()
+
 
   const navigate = useNavigate()
   const [login, { isLoading }] = useLoginMutation();
-
-
   React.useEffect(
     () => {
       const token = localStorage.getItem('token');
       if (token) {
+
         navigate('/')
       }
+      
     }
   )
   const handleSubmit = async (event) => {
@@ -56,79 +64,83 @@ export default function SignIn() {
       }
     } catch (err) {
       console.log(err)
+      toast.error('Invalid Credentials')
     }
+
   };
   return (
-    <div style={{
-      flex: 1,
-      display: 'flex',
-      justifyContent: 'flex-end',
-      alignItems: 'center'
-    }}>
-      <div style={{ flex: 1 }}>
-        <img
-          style={{
-            height: 500,
-            objectFit: 'cover',
-            width: '40%',
-            position: 'absolute',
-            top: 150,
-            left: 150,
-          }}
-          src='http://localhost:5173/signin1.png'
-        />
-      </div>
+    <>
+      <ToastContainer />
       <div style={{
         flex: 1,
         display: 'flex',
         justifyContent: 'flex-end',
-        alignItems: 'center',
-        position: 'absolute',
-        top: 200,
-        right: 200,
+        alignItems: 'center'
       }}>
-        <ThemeProvider theme={theme} >
-          <Container
-            component="main"
-            maxWidth="xs"
-          >
-            <CssBaseline />
-            <Typography component="h1" variant="h7" sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
-              SignIn
-            </Typography>
-            <Box
-              style={{
-                flex: 1,
-                display: 'flex',
-                justifyContent: 'flex-end',
-                alignItems: 'center'
-              }}
-
+        <div style={{ flex: 1 }}>
+          <img
+            style={{
+              height: 500,
+              objectFit: 'cover',
+              width: '40%',
+              position: 'absolute',
+              top: 150,
+              left: 150,
+            }}
+            src='http://localhost:5173/signin1.png'
+          />
+        </div>
+        <div style={{
+          flex: 1,
+          display: 'flex',
+          justifyContent: 'flex-end',
+          alignItems: 'center',
+          position: 'absolute',
+          top: 200,
+          right: 200,
+        }}>
+          <ThemeProvider theme={theme} >
+            <Container
+              component="main"
+              maxWidth="xs"
             >
+              <CssBaseline />
+              <Typography component="h1" variant="h7" sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
+                SignIn
+              </Typography>
+              <Box
+                style={{
+                  flex: 1,
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'center'
+                }}
+
+              >
 
 
-              <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  id="email"
-                  label="Email Address"
-                  name="email"
-                  autoComplete="email"
-                  autoFocus
-                />
-                <TextField
-                  margin="normal"
-                  required
-                  fullWidth
-                  name="password"
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="current-password"
-                />
-                {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    id="email"
+                    label="Email Address"
+                    name="email"
+                    autoComplete="email"
+                    autoFocus
+                  />
+                  <TextField
+                    margin="normal"
+                    required
+                    fullWidth
+                    name="password"
+                    label="Password"
+                    type="password"
+                    id="password"
+                    autoComplete="current-password"
+                  />
+                  {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
           <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
           <Input
             id="standard-adornment-password"
@@ -145,33 +157,34 @@ export default function SignIn() {
             }
           />
         </FormControl> */}
-                <Button
-                  type="submit"
-                  fullWidth
-                  variant="contained"
-                  sx={{ mt: 3, mb: 2, backgroundColor: 'green', '&:hover': { backgroundColor: 'red' } }}
-                >
+                  <Button
+                    type="submit"
+                    fullWidth
+                    variant="contained"
+                    sx={{ mt: 3, mb: 2, backgroundColor: 'green', '&:hover': { backgroundColor: 'darkGreen' } }}
+                  >
 
-                  Sign In
-                </Button>
-                <Grid container>
-                  <Grid item xs>
-                    <Link href="/Forgotpw" variant="contained">
-                      Forgot password?
-                    </Link>
+                    Sign In
+                  </Button>
+                  <Grid container>
+                    <Grid item xs>
+                      <Link href="/Forgotpw" variant="contained">
+                        Forgot password?
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link href="/SignUp" variant="contained">
+                        {"Don't have an account? Sign Up"}
+                      </Link>
+                    </Grid>
                   </Grid>
-                  <Grid item>
-                    <Link href="/SignUp" variant="contained">
-                      {"Don't have an account? Sign Up"}
-                    </Link>
-                  </Grid>
-                </Grid>
+                </Box>
               </Box>
-            </Box>
 
-          </Container>
-        </ThemeProvider>
+            </Container>
+          </ThemeProvider>
+        </div>
       </div>
-    </div>
+    </>
   );
 }

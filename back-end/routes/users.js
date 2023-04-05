@@ -42,9 +42,6 @@ router.post("/register", async (req, res) => {
       message: "User registered successfully",
       data: savedUser,
     });
-
-    // res.json(await user.save()); // Save the user to the database and send the
-    // saved user as a JSON object in the response
   } catch (err) {
     res.json(err); //If there is an error, send the error object as a
     // JSON object in the response
