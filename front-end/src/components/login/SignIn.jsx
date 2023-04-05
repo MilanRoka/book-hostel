@@ -11,38 +11,52 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { Alert } from '@mui/material';
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { useLoginMutation } from '../App/slice/authSlice';
 
 const theme = createTheme();
 export default function SignIn() {
-  const [isSuccess, setIsSuccess] = React.useState(false);
 
   const navigate = useNavigate()
-  const success = () => {
-    return (
-      <Alert severity="success">This is a success alert — check it out!</Alert>
-    )
-  }
-  const handleSubmit = (event) => {
+  const [login, { isLoading }] = useLoginMutation();
+
+
+  React.useEffect(
+    () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        navigate('/')
+      }
+    }
+  )
+  const handleSubmit = async (event) => {
+
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-
+    // eslint-disable-next-line no-console
     console.log({
       email: data.get('email'),
       password: data.get('password'),
     })
-    axios
-      .post("http://localhost:3000/users/login",
-        {
-          email: data.get('email'),
-          password: data.get('password'),
-
-        })
-      .then((res) => {
-        console.log(res.data.token)
-        localStorage.setItem('token', res.data.token)
-        setIsSuccess(true)
+    try {
+      if (
+        data.get('email') === 'admin@gmail.com' && data.get('password') === 'admin123'
+      ) {
+        navigate('/superAdmin')
+      }
+      console.log(email)
+      const loginData = await login({
+        email: data.get('email'),
+        password: data.get('password'),
+      }).unwrap()
+      if (loginData) {
         navigate('/')
-      })
+        localStorage.setItem('token', loginData.token)
+        setIsSuccess(true)
+      }
+    } catch (err) {
+      console.log(err)
+    }
   };
   return (
     <div style={{
@@ -65,56 +79,56 @@ export default function SignIn() {
         />
       </div>
       <div style={{
-                    flex: 1,
-                    display: 'flex',
-                    justifyContent: 'flex-end',
-                    alignItems: 'center',
-                    position: 'absolute',
-                    top: 200,
-                    right: 200,
-                }}>
-      <ThemeProvider theme={theme} >
-        <Container
-          component="main"
-          maxWidth="xs"
-        >
-          <CssBaseline />
-          <Typography component="h1" variant="h7" sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
-            SignIn
-          </Typography>
-          <Box
-            style={{
-              flex: 1,
-              display: 'flex',
-              justifyContent: 'flex-end',
-              alignItems: 'center'
-            }}
-
+        flex: 1,
+        display: 'flex',
+        justifyContent: 'flex-end',
+        alignItems: 'center',
+        position: 'absolute',
+        top: 200,
+        right: 200,
+      }}>
+        <ThemeProvider theme={theme} >
+          <Container
+            component="main"
+            maxWidth="xs"
           >
+            <CssBaseline />
+            <Typography component="h1" variant="h7" sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
+              SignIn
+            </Typography>
+            <Box
+              style={{
+                flex: 1,
+                display: 'flex',
+                justifyContent: 'flex-end',
+                alignItems: 'center'
+              }}
+
+            >
 
 
-            <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                id="email"
-                label="Email Address"
-                name="email"
-                autoComplete="email"
-                autoFocus
-              />
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                autoComplete="current-password"
-              />
-              {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
+              <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  id="email"
+                  label="Email Address"
+                  name="email"
+                  autoComplete="email"
+                  autoFocus
+                />
+                <TextField
+                  margin="normal"
+                  required
+                  fullWidth
+                  name="password"
+                  label="Password"
+                  type="password"
+                  id="password"
+                  autoComplete="current-password"
+                />
+                {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
           <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
           <Input
             id="standard-adornment-password"
@@ -131,33 +145,32 @@ export default function SignIn() {
             }
           />
         </FormControl> */}
-              <Button
-                
-                type="submit"
-                fullWidth
-                variant="contained"
-                sx={{ mt: 3, mb: 2, backgroundColor:'green','&:hover': { backgroundColor: 'red' } }}
-              >
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  sx={{ mt: 3, mb: 2, backgroundColor: 'green', '&:hover': { backgroundColor: 'red' } }}
+                >
 
-                Sign In
-              </Button>
-              <Grid container>
-                <Grid item xs>
-                  <Link href="/Forgotpw" variant="contained">
-                    Forgot password?
-                  </Link>
+                  Sign In
+                </Button>
+                <Grid container>
+                  <Grid item xs>
+                    <Link href="/Forgotpw" variant="contained">
+                      Forgot password?
+                    </Link>
+                  </Grid>
+                  <Grid item>
+                    <Link href="/SignUp" variant="contained">
+                      {"Don't have an account? Sign Up"}
+                    </Link>
+                  </Grid>
                 </Grid>
-                <Grid item>
-                  <Link href="/SignUp" variant="contained">
-                    {"Don't have an account? Sign Up"}
-                  </Link>
-                </Grid>
-              </Grid>
+              </Box>
             </Box>
-          </Box>
 
-        </Container>
-      </ThemeProvider>
+          </Container>
+        </ThemeProvider>
       </div>
     </div>
   );

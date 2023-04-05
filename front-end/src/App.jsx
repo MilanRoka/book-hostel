@@ -18,23 +18,25 @@ import '@fontsource/public-sans';
 import SuperAdmin from './components/Dashboard/SuperAdmin';
 
 
+
 const App = () => {
    return (
       <>
          <Router>
             <Routes>
                <Route exact path='/' element={<Home />} />
-               <Route path='/navbar' element={< Navbar />} />
-               <Route path='/footer' element={< Footer />} />
                <Route path='/signup' element={<SignUp />} />
                <Route path='/signin' element={<SignIn />} />
+               <Route path='/navbar' element={< Navbar />} />
+               <Route path='/footer' element={< Footer />} />
+               <Route path='/hostels' element={<Hostels />} />
+               <Route path='/register property' element={<RegistrationForm />} />
+
                <Route path='/forgotpw' element={<Forgotpw />} />
                <Route path='/dashboard' element={<Dashboard />} />
-               <Route path='/hostels' element={<Hostels />} />
                <Route element={<Records />} />
                <Route path='/homeitems' element={<Homeitems />} />
                <Route path='/searchbar' element={<Searchbar />} />
-               <Route path='/register property' element={<RegistrationForm />} />
                <Route path='/hostelpage' element={<HostelPage />} />
                <Route path ='/superadmin' element={<SuperAdmin />}/>
             </Routes>

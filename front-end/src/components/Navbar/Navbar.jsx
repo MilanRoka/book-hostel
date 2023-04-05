@@ -10,19 +10,30 @@ import HolidayVillageTwoToneIcon from '@mui/icons-material/HolidayVillageTwoTone
 import PersonIcon from '@mui/icons-material/Person';
 
 function Navbar() {
-  const [isLoggedIn, setIsLoggedIn] = React.useState(false);
+  const [isLoggedIn, setIsLoggedIn] = React.useState(true);
 
-  // function to log in the user
+
+
+  React.useEffect(
+    () => {
+      const token = localStorage.getItem('token');
+      if (token) {
+        setIsLoggedIn(true);
+      } else {
+        setIsLoggedIn(false);
+      }
+    }
+  )
   const handleLogin = () => {
-    // perform login logic here
     setIsLoggedIn(true);
   };
 
-  // function to log out the user
   const handleLogout = () => {
-    // perform logout logic here
     setIsLoggedIn(false);
+    localStorage.removeItem('token');
+    
   };
+
   return (
     <div>
       <React.Fragment>
@@ -32,7 +43,7 @@ function Navbar() {
           color="default"
           elevation={0}
           sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-          style={{ background: 'transparent' }}
+          style={{ color: 'dark' }}
         >
           <Toolbar sx={{ flexWrap: 'wrap' }}>
             <HolidayVillageTwoToneIcon sx={{ fontSize: 50 }} />
@@ -48,39 +59,22 @@ function Navbar() {
               bookHostel.
             </Typography>
             <nav>
-              <Link variant="outlined" href="/" sx={{ my: 1, mx: 1.5 }}>
-                Home
-              </Link>
-              <Link variant="outlined" href="/hostels" sx={{ my: 1, mx: 1.5 }}>
-                Hostels
-              </Link>
-              <Link variant="outlined" href="/register property" sx={{ my: 1, mx: 1.5 }}>
-                List Your Property
-              </Link>
-              <ButtonGroup
-                aria-label="text button group"
-                variant="outlined"
-                sx={{ my: 1, mx: 1.5 }}
-                style={{ padding: 10, borderRadius: 10 }}
-              >
-                <Button href="/SignUp">Register</Button>
-                <Button href="/SignIn">Sign in</Button>
+              <ButtonGroup variant="text" aria-label="text button group">
+                <Button href="/" key="home">Home</Button>
+                <Button href="/hostels" key="hostels">Hostels</Button>
+                <Button href="/register property" key="list-property">List Your Property</Button>
+                {isLoggedIn ?
+                  <ButtonGroup key="loggedin-group">
+                    <Button  onClick={handleLogout} key="logout">Log Out</Button>
+                    <Button href="#" key="profile"> <PersonIcon /> </Button>
+                  </ButtonGroup>
+                  :
+                  <ButtonGroup key="loggedout-group">
+                    <Button href="/SignIn"  onClick={handleLogin} key="signin">Sign In</Button>
+                    <Button href="/SignUp" key="signup">Register</Button>
+                  </ButtonGroup>
+                }
               </ButtonGroup>
-              {/* {isLoggedIn ? (
-                <Link variant="button" href="/profile" sx={{ my: 1, mx: 1.5 }}>
-                  <PersonIcon sx={{ mr: 0.5 }} />
-                  Profile
-                </Link>
-              ) : (
-                <Button variant="outlined" onClick={handleLogin} sx={{ my: 1, mx: 1.5 }}>
-                  Log out
-                </Button>
-              )}
-              {isLoggedIn && (
-                <Link variant="button" href="/register property" sx={{ my: 1, mx: 1.5 }}>
-                  List Your Property
-                </Link>
-              )} */}
             </nav>
           </Toolbar>
         </AppBar>
@@ -88,4 +82,5 @@ function Navbar() {
     </div>
   );
 }
+
 export default Navbar;
