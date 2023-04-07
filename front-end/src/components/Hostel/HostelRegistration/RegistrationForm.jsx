@@ -19,27 +19,22 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
-import SuperAdmin from '../../Dashboard/SuperAdmin';
-
-
 
 export default function RegistrationForm() {
 
-    const [selectedFile, setSelectedFile] = useState(null);
 
-    const handleImageUpload = (file) => {
-        setSelectedFile(file);
-    }
-
-    const [showPassword, setShowPassword] = React.useState(false);
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
-    const [open, setOpen] = React.useState(false);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+    const handleClickShowPassword = (type) => {
+        if (type === "password") {
+            setShowPassword(!showPassword);
+        } else {
+            setShowConfirmPassword(!showConfirmPassword);
+        }
+    };
     const handleMouseDownPassword = (event) => {
         event.preventDefault();
-
     };
-    const navigate = useNavigate()
-
     const success = () => {
         return (
             <Alert severity="success">This is a success alert — check it out!</Alert>
@@ -92,11 +87,7 @@ export default function RegistrationForm() {
     return (
         <>
             <Navbar />
-            <Snackbar open={open} autoHideDuration={6000} onClose={() => setOpen(false)} >
-                <Alert onClose={() => setOpen(false)} severity="error" sx={{ width: '100%' }}>
-                    Please fill out the form properly
-                </Alert>
-            </Snackbar>
+            
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
                 <div style={{ flex: 1 }}>
                     <img
@@ -211,13 +202,13 @@ export default function RegistrationForm() {
                                                 <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
                                                 <Input
                                                     name="password"
-                                                    id="standard-adornment-password"
+                                                    id="adornment-password"
                                                     type={showPassword ? 'text' : 'password'}
                                                     endAdornment={
                                                         <InputAdornment position="end">
                                                             <IconButton
                                                                 aria-label="toggle password visibility"
-                                                                onClick={handleClickShowPassword}
+                                                                onClick={() => handleClickShowPassword("password")}
                                                                 onMouseDown={handleMouseDownPassword}
                                                             >
                                                                 {showPassword ? <VisibilityOff /> : <Visibility />}
@@ -229,19 +220,19 @@ export default function RegistrationForm() {
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <FormControl variant="standard">
-                                                <InputLabel htmlFor="standard-adornment-password">Confirm Password</InputLabel>
+                                                <InputLabel htmlFor="standard-password">Confirm Password</InputLabel>
                                                 <Input
                                                     name="confirmPassword"
-                                                    id="standard-adornment-confirmPassword"
-                                                    type={showPassword ? 'text' : 'password'}
+                                                    id="standard-confirmPassword"
+                                                    type={showConfirmPassword ? 'text' : 'password'}
                                                     endAdornment={
                                                         <InputAdornment position="end">
                                                             <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={handleClickShowPassword}
+                                                                aria-label=" password visibility"
+                                                                onClick={() => handleClickShowPassword("confirmPassword")}
                                                                 onMouseDown={handleMouseDownPassword}
                                                             >
-                                                                {showPassword ? <VisibilityOff /> : <Visibility />}
+                                                                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                                                             </IconButton>
                                                         </InputAdornment>
                                                     }
@@ -249,7 +240,13 @@ export default function RegistrationForm() {
                                             </FormControl>
                                         </Grid>
                                     </Grid>
-                                    <Grid item xs={12}>
+                                    <div>
+                                        <Input sx={{ pt: 13 }} type="file" accept="image/*" />
+
+                                    </div>
+
+
+                                    {/* <Grid item xs={12}>
                                         <label htmlFor="image">
                                             <Button
                                                 variant='outlined'
@@ -273,7 +270,8 @@ export default function RegistrationForm() {
                                         {selectedFile && (
                                             <p style={{fontStyle:'italic',color:'blue'}}>{selectedFile.name}</p>
                                         )}
-                                    </Grid>
+                                    </Grid> */}
+
                                     <div style={{ alignContent: 'center', display: 'flex', justifyContent: 'center', marginTop: 40 }}>
                                         <Button variant="contained" type='submit' sx={{ backgroundColor: 'green' }}>SUBMIT</Button>
                                     </div>

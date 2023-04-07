@@ -8,8 +8,6 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { Alert } from '@mui/material';
-import axios from 'axios'
 import { useNavigate } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { useLoginMutation } from '../App/slice/authSlice';
@@ -34,14 +32,12 @@ export default function SignIn() {
 
         navigate('/')
       }
-      
+
     }
   )
   const handleSubmit = async (event) => {
-
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    // eslint-disable-next-line no-console
     console.log({
       email: data.get('email'),
       password: data.get('password'),
@@ -64,7 +60,10 @@ export default function SignIn() {
       }
     } catch (err) {
       console.log(err)
-      toast.error('Invalid Credentials')
+      toast('Invalid Credentials', {
+        position: toast.POSITION.BOTTOM_RIGHT,
+        style: { backgroundColor: '#d31b2d', color:'white', borderRadius:25 }
+    });
     }
 
   };
@@ -115,10 +114,7 @@ export default function SignIn() {
                   justifyContent: 'flex-end',
                   alignItems: 'center'
                 }}
-
               >
-
-
                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                   <TextField
                     margin="normal"
@@ -140,23 +136,6 @@ export default function SignIn() {
                     id="password"
                     autoComplete="current-password"
                   />
-                  {/* <FormControl sx={{ m: 1, width: '25ch' }} variant="standard">
-          <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-          <Input
-            id="standard-adornment-password"
-            type={showPassword ? 'text' : 'password'}
-            endAdornment={
-              <InputAdornment position="end">
-                <IconButton
-                  onClick={handleClickShowPassword}
-                  onMouseDown={handleMouseDownPassword}
-                >
-                  {showPassword ? <VisibilityOff /> : <Visibility />}
-                </IconButton>
-              </InputAdornment>
-            }
-          />
-        </FormControl> */}
                   <Button
                     type="submit"
                     fullWidth
@@ -180,7 +159,6 @@ export default function SignIn() {
                   </Grid>
                 </Box>
               </Box>
-
             </Container>
           </ThemeProvider>
         </div>

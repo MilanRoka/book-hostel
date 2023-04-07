@@ -18,6 +18,10 @@ router.get("/", async (req, res) => {
 router.post("/register", async (req, res) => {
   // Validate the request body
   const { error } = regValidation(req.body);
+  
+  if (req.body.password !== req.body.confirmPassword ) return res.send("Password does not match")
+
+
   const salt = await bcrypt.genSalt(10);
   const hashPwd = await bcrypt.hash(req.body.password, salt);
   // if there is error, send the first error detail as a response
@@ -32,7 +36,10 @@ router.post("/register", async (req, res) => {
     },
     email: req.body.email,
     password: hashPwd,
+    confirmPassword: hashPwd,
     phone: req.body.phone,
+    role: req.body.role,
+
   });
   try {
     const savedUser = await user.save();

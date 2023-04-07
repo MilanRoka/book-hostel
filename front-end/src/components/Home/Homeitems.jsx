@@ -202,7 +202,7 @@ const homeitems = () => {
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
-                    <Button variant='contained' size="small" color="success">
+                    <Button href='/hostelpage' variant='contained' size="small" color="success">
                       Book Now
                     </Button>
                   </CardActions>

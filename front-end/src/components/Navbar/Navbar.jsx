@@ -9,11 +9,9 @@ import GlobalStyles from '@mui/material/GlobalStyles';
 import HolidayVillageTwoToneIcon from '@mui/icons-material/HolidayVillageTwoTone';
 import PersonIcon from '@mui/icons-material/Person';
 
+
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-
-
-
   React.useEffect(
     () => {
       const token = localStorage.getItem('token');

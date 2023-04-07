@@ -24,7 +24,12 @@ const UserSchema = mongoose.Schema({
     type: String,
     required: true,
     match: /^\d{10}$/
-  }
+  },
+  role: {
+    type: String,
+    enum: ["superadimn","admin", "user"],
+    default: "user",
+  },
 });
 
 module.exports = mongoose.model("Users", UserSchema);

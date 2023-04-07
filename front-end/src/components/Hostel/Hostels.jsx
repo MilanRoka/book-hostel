@@ -1,12 +1,9 @@
 import * as React from 'react';
-import Navbar from '../navbar/navbar'
+import Navbar from '../Navbar/Navbar';
 import 'react-calendar/dist/Calendar.css';
 import "react-datepicker/dist/react-datepicker.css";
 import Footer from '../Footer/Footer';
 import Searchbar from '../Navbar/Searchbar';
-import CardActionArea from '@mui/material/CardActionArea';
-import CardMedia from '@mui/material/CardMedia';
-import CardActions from '@mui/material/CardActions';
 import Button from '@mui/material/Button';
 import Card from '@mui/joy/Card';
 import CardCover from '@mui/joy/CardCover';

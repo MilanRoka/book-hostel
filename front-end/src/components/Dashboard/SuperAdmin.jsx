@@ -258,7 +258,7 @@ function DashboardContent() {
                                 noWrap
                                 sx={{ flexGrow: 1 }}
                             >
-                                Dashboard
+                                Super Admin Dashboard
                             </Typography>
                         </Toolbar>
                     </AppBar>
