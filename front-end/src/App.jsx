@@ -16,6 +16,7 @@ import Searchbar from './components/Navbar/Searchbar';
 import HostelPage from './components/Hostel/HostelPage'
 import '@fontsource/public-sans';
 import SuperAdmin from './components/Dashboard/SuperAdmin';
+import Checkout from './components/Booking/checkout';
 
 
 
@@ -31,14 +32,14 @@ const App = () => {
                <Route path='/footer' element={< Footer />} />
                <Route path='/hostels' element={<Hostels />} />
                <Route path='/register property' element={<RegistrationForm />} />
-
                <Route path='/forgotpw' element={<Forgotpw />} />
                <Route path='/dashboard' element={<Dashboard />} />
                <Route element={<Records />} />
                <Route path='/homeitems' element={<Homeitems />} />
                <Route path='/searchbar' element={<Searchbar />} />
                <Route path='/hostelpage' element={<HostelPage />} />
-               <Route path ='/superadmin' element={<SuperAdmin />}/>
+               <Route path='/superadmin' element={<SuperAdmin />} />
+               <Route path='/checkout' element={<Checkout/>}/>
             </Routes>
          </Router>
       </>

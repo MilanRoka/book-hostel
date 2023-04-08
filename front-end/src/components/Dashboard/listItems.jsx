@@ -31,7 +31,14 @@ export const mainListItems = (
       <ListItemIcon>
         <LogoutIcon />
       </ListItemIcon>
-      <ListItemText primary="Logout" />
+      <ListItemText 
+      onClick={
+        () => {
+          localStorage.removeItem('token');
+          window.location.href = '/signin';
+        }
+      }
+      primary="Logout" />
     </ListItemButton>
   </React.Fragment>
 );

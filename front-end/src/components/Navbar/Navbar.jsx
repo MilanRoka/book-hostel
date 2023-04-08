@@ -12,16 +12,15 @@ import PersonIcon from '@mui/icons-material/Person';
 
 function Navbar() {
   const [isLoggedIn, setIsLoggedIn] = React.useState(true);
-  React.useEffect(
-    () => {
-      const token = localStorage.getItem('token');
-      if (token) {
-        setIsLoggedIn(true);
-      } else {
-        setIsLoggedIn(false);
-      }
+  React.useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
     }
-  )
+  });
+
   const handleLogin = () => {
     setIsLoggedIn(true);
   };
@@ -29,9 +28,7 @@ function Navbar() {
   const handleLogout = () => {
     setIsLoggedIn(false);
     localStorage.removeItem('token');
-    
   };
-
   return (
     <div>
       <React.Fragment>
@@ -40,35 +37,36 @@ function Navbar() {
           position="static"
           color="default"
           elevation={0}
-          sx={{ borderBottom: (theme) => `1px solid ${theme.palette.divider}` }}
-          style={{ color: 'dark' }}
+          className="border-b dark:border-gray-600"
         >
-          <Toolbar sx={{ flexWrap: 'wrap' }}>
-            <HolidayVillageTwoToneIcon sx={{ fontSize: 50 }} />
-            <Typography variant="h6" noWrap sx={{
-              mr: 2, pt: 1.5,
-              display: 'flex',
-              flexGrow: 1,
-              fontFamily: 'Arial, sans-serif',
-              fontSize: '25px',
-              fontWeight: 'bold',
-              letterSpacing: '1px'
-            }}>
-              bookHostel.
-            </Typography>
-            <nav>
-              <ButtonGroup variant="text" aria-label="text button group">
+          <Toolbar className="flex flex-wrap items-center justify-between">
+            <div className="flex items-center">
+              <HolidayVillageTwoToneIcon className="text-4xl md:text- mr-2 " />
+              <Typography
+                variant="h6"
+                noWrap
+                className="flex-shrink-0 text-lg md:text-2xl font-bold tracking-wide"
+              >
+                bookHostel.
+              </Typography>
+            </div>
+            <nav className="flex-shrink-0 flex">
+              <ButtonGroup
+                variant="text"
+                aria-label="text button group"
+                className="flex flex-wrap items-center gap-2 md:gap-6"
+              >
                 <Button href="/" key="home">Home</Button>
                 <Button href="/hostels" key="hostels">Hostels</Button>
                 <Button href="/register property" key="list-property">List Your Property</Button>
                 {isLoggedIn ?
                   <ButtonGroup key="loggedin-group">
-                    <Button  onClick={handleLogout} key="logout">Log Out</Button>
+                    <Button onClick={handleLogout} key="logout">Log Out</Button>
                     <Button href="#" key="profile"> <PersonIcon /> </Button>
                   </ButtonGroup>
                   :
                   <ButtonGroup key="loggedout-group">
-                    <Button href="/SignIn"  onClick={handleLogin} key="signin">Sign In</Button>
+                    <Button href="/SignIn" onClick={handleLogin} key="signin">Sign In</Button>
                     <Button href="/SignUp" key="signup">Register</Button>
                   </ButtonGroup>
                 }

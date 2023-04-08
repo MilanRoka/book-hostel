@@ -20,9 +20,10 @@ import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
 
+
 export default function RegistrationForm() {
 
-
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [showConfirmPassword, setShowConfirmPassword] = useState(false);
     const handleClickShowPassword = (type) => {
@@ -40,13 +41,14 @@ export default function RegistrationForm() {
             <Alert severity="success">This is a success alert — check it out!</Alert>
         )
     }
-    React.useEffect(() => {
-        if (open) {
-            setTimeout(() => {
-                setOpen(false)
-            }, 6000)
-        }
-    }, [open])
+    // React.useEffect(() => {
+    //     if (open) {
+    //         setTimeout(() => {
+    //             setOpen(false)
+    //         }, 6000)
+    //     }
+    // },
+    //  [open])
     const handleSubmit = (event) => {
         event.preventDefault();
         const data = new FormData(event.currentTarget);
@@ -81,7 +83,7 @@ export default function RegistrationForm() {
                 // console.log(res.data.token)
                 // sessionStorage.setItem('token', res.data.token)
                 success()
-                navigate('/superadmin')
+                navigate('/')
             })
     };
     return (

@@ -5,7 +5,13 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      width: {
+        'customBtn': '7rem',
+        '128': '33rem',
+        '150': '48rem',
+    },
+    },
   },
   plugins: [],
 }
