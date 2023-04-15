@@ -104,8 +104,8 @@ export default function SignIn() {
               maxWidth="xs"
             >
               <CssBaseline />
-              <Typography component="h1" variant="h7" sx={{ fontWeight: 'bold', display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
-                SignIn
+              <Typography component="h1" variant="h7" sx={{ fontSize:40, fontWeight: 'bold', display: 'flex', justifyContent: 'center', justifyItems: 'center' }}>
+                Start Your Booking!!
               </Typography>
               <Box
                 style={{

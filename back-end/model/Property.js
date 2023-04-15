@@ -36,6 +36,10 @@ const PropertySchema = new mongoose.Schema(
       required: true,
       default: "Pending",
     },
+    image:{
+      type: String,
+
+    }
   },
   {
     timestamps: true,

@@ -27,7 +27,7 @@ import Button from '@mui/material/Button';
 
 
 import api from '../Api/api';
-import { Chip } from '@mui/material';
+import { Chip, Modal } from '@mui/material';
 
 const drawerWidth = 200;
 
@@ -93,6 +93,8 @@ function createData(name, location) {
 function Row(props) {
     const { row } = props;
     const [open, setOpen] = React.useState(false);
+    
+
 
     return (
         <React.Fragment >
@@ -183,7 +185,32 @@ function DashboardContent() {
     const toggleDrawer = () => {
         setOpen(!open);
     };
+    const [modalOpen, setModalOpen] = React.useState(false)
+    const [previewImage, setPreviewImage] = React.useState("")
 
+    const handleClose = () =>{
+        setModalOpen(false)
+    }
+
+    // const style = () =>{
+    //     return {
+    //         modal:{
+    //             position: 'absolute',
+    //             width: 400,
+    //             backgroundColor: 'white',
+    //             border: '2px solid #000',
+    //             boxShadow: 24,
+    //             padding: 16,
+    //             top: '50%',
+    //             left: '50%',
+    //             transform: 'translate(-50%, -50%)',
+    //         }
+    //     } 
+    // }
+
+    const handleOpen = () => {
+        setModalOpen(true)
+    }
 
 
     React.useEffect(() => {
@@ -202,29 +229,30 @@ function DashboardContent() {
 
 
     React.useEffect(() => {
-      
+
         fetchProperties()
 
     }, []);
 
 
-    const onApprove = async(id) =>{
+    const onApprove = async (id) => {
         const status = "Approved"
         await api.put(`/property/status/${id}`,
-        {
-            status
-        })
+            {
+                status
+            })
         setProperties("")
         fetchProperties()
 
     }
-
-    const onReject = async(id) =>{
+   
+    
+    const onReject = async (id) => {
         const status = "Rejected"
         await api.put(`/property/status/${id}`,
-        {
-            status
-        })
+            {
+                status
+            })
         fetchProperties()
     }
     return (
@@ -302,8 +330,9 @@ function DashboardContent() {
                                             <TableCell align="left">Property Name</TableCell>
                                             <TableCell align="center">Email</TableCell>
                                             <TableCell align="center">City</TableCell>
-                                            <TableCell align= "center">Status</TableCell> 
-                                            <TableCell align = "center">Action</TableCell>
+                                            <TableCell align="center">Status</TableCell>
+                                            <TableCell align="center">Image</TableCell>
+                                            <TableCell align="center">Action</TableCell>
                                         </TableRow>
                                     </TableHead>
                                     <TableBody>
@@ -329,46 +358,107 @@ function DashboardContent() {
                                                         )
                                                     }
                                                 </TableCell>
+                                                <TableCell
+                                                    align='center'
+                                                    style={{
+                                                        width: '100px',
+                                                        height: '100px',
+                                                        objectFit: 'cover',
+                                                       
+                                                    }}
+                                                    
+                                                >
+                                                    <img
+                                                        src={property.image}
+                                                        alt="property"
+                                                        style={{
+                                                            width: '100%',
+                                                            height: '100%',
+                                                            objectFit: 'cover',
+                                                        
+                                                        }}
+                                                        
+                                                        onClick={
+                                                            () => {
+                                                                setPreviewImage(property.image)
+                                                                handleOpen()
+                                                            }
+
+                                                        }
+                                                    />
+                                                </TableCell>
                                                 <TableCell align='center'>
                                                     {
                                                         property.status === 'Pending' ? (
-                                                    <Box display={'flex'} flexDirection={"row"}>
-                                                    <Button variant= 'contained' display = 'flex' alignItems='center'
-                                                    style={{
-                                                        backgroundColor: 'green',
-                                                        color: 'white',
-                                                        marginLeft: '10px'   
-                                                    }}
-                                                    onClick={() => onApprove(property._id)}
-                                                    >   
-                                                        Approve
-                                                    </Button>
-                                                    <Button variant='contained' display='flex' alignItems='center'
-                                                    style={{
-                                                        backgroundColor: 'red',
-                                                        color: 'white',
-                                                        marginLeft: '10px'
-                                                    }}
-                                                    onClick={() => onReject(property._id)}
-                                                    >
-                                                        Reject
-                                                    </Button>
-                                                  
-                                                    </Box>
-                                                        ) : 
-                                                        (
-                                                            <Typography
-                                                            variant="body2"
-                                                            color="text.secondary"
-                                                            >
-                                                                No Action Available
-                                                            </Typography>
-                                                        )
+                                                            <Box display={'flex'} flexDirection={"row"}>
+                                                                <Button variant='contained' display='flex' alignItems='center'
+                                                                    style={{
+                                                                        backgroundColor: 'green',
+                                                                        color: 'white',
+                                                                        marginLeft: '10px'
+                                                                    }}
+                                                                    onClick={() => onApprove(property._id)}
+                                                                >
+                                                                    Approve
+                                                                </Button>
+                                                                <Button variant='contained' display='flex' alignItems='center'
+                                                                    style={{
+                                                                        backgroundColor: 'red',
+                                                                        color: 'white',
+                                                                        marginLeft: '10px'
+                                                                    }}
+                                                                    onClick={() => onReject(property._id)}
+                                                                >
+                                                                    Reject
+                                                                </Button>
+
+                                                            </Box>
+                                                        ) :
+                                                            (
+                                                                <Typography
+                                                                    variant="body2"
+                                                                    color="text.secondary"
+                                                                >
+                                                                    No Action Available
+                                                                </Typography>
+                                                            )
                                                     }
                                                 </TableCell>
                                             </TableRow>
                                         ))}
                                     </TableBody>
+                                    <Modal
+                                        open={modalOpen}
+                                        onClose={handleClose}
+                                        aria-labelledby="modal-modal-title"
+                                        aria-describedby="modal-modal-description"
+                                    >
+                                        <Box 
+                                        sx={{
+                                            position: 'absolute',
+                                            top: '50%',
+                                            left: '50%',
+                                            transform: 'translate(-50%, -50%)',
+                                            bgcolor: 'background.paper',
+                                            border: '2px solid #000',
+                                            boxShadow: 24,
+                                            p: 4,
+                                        }
+                                    }
+                                        >
+                                            <img    
+                                                src={previewImage}
+                                                alt="property"
+                                                style={{
+                                                    width: '100%',
+                                                    height: '100%',
+                                                    objectFit: 'cover',
+                                                }}
+                                            />
+
+                                        </Box>
+                                    </Modal>
+
                                 </Table>
                             </TableContainer>
                         </Box>

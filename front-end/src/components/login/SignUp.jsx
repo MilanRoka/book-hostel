@@ -32,14 +32,16 @@ export default function SignUp() {
       email: data.get('email'),
       phone: data.get('mobile'),
       password: data.get('password'),
-      confirmPassword: data.get('confirmPassword')
+      confirmPassword: data.get('confirmPassword'),
+      role: "user"
+
     }
     axios
       .post("http://localhost:3000/users/register",
         payload
       )
       .then((res) => {
-        // navigate('/signin')
+        navigate('/signin')
       }
       )
       .catch((err) => {

@@ -37,7 +37,7 @@ const App = () => {
                <Route element={<Records />} />
                <Route path='/homeitems' element={<Homeitems />} />
                <Route path='/searchbar' element={<Searchbar />} />
-               <Route path='/hostelpage' element={<HostelPage />} />
+               <Route path='/hostelpage/:id' element={<HostelPage />} />
                <Route path='/superadmin' element={<SuperAdmin />} />
                <Route path='/checkout' element={<Checkout/>}/>
             </Routes>

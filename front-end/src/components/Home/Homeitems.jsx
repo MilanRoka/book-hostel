@@ -8,10 +8,12 @@ import { useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import { styled } from '@mui/material/styles';
 import ButtonBase from '@mui/material/ButtonBase';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const images = [
   {
-    image: '/card2.jpg',
+    image: '/ktm.jpg',
     title: 'Kathmandu',
     width: '20%',
   },
@@ -141,7 +143,33 @@ const data = [
 ]
 
 const homeitems = () => {
+  const navigate = useNavigate()
   const theme = useTheme();
+  const [hostels, setHostels] = React.useState("")
+  const fetchData = ()=> {
+    axios.get('http://localhost:3000/property')
+    .then((res) => {
+      //check if approved
+      const response = res.data
+      const filteredData = response.filter(
+        (item) => item.status === 'Approved'
+
+      )
+      setHostels(filteredData)
+      
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+  }
+
+  React.useEffect(() => {
+    fetchData()
+  }, [])
+
+
+
+
   return (
     <>
       <div>
@@ -183,9 +211,14 @@ const homeitems = () => {
         </div>
         <div style={{ display: 'flex', gap: 30, flexWrap: 'wrap', marginTop: 50, justifyContent: 'center' }}>
           {
-            data.map((item) => {
+            
+            hostels && hostels?.map((item) => {
               return (
-                <Card sx={{ maxWidth: 345 }}>
+                <Card
+                  key={
+                    item._id
+                  }
+                sx={{ maxWidth: 345 }}>
                   <CardActionArea>
                     <CardMedia
                       component="img"
@@ -194,15 +227,19 @@ const homeitems = () => {
                       alt="green iguana" />
                     <CardContent>
                       <Typography gutterBottom variant="h5" component="div">
-                        {item.title}
+                        {item.propertyName}
                       </Typography>
                       <Typography variant="body2" color="text.secondary">
-                        {item.description}
+                        {item.city + ", " + item.address1}
                       </Typography>
                     </CardContent>
                   </CardActionArea>
                   <CardActions>
-                    <Button href='/hostelpage' variant='contained' size="small" color="success">
+                    <Button variant='contained' size="small" color="success"
+                      onClick={() => {
+                        navigate('/hostelPage/' + item._id)
+                      }}
+                    >
                       Book Now
                     </Button>
                   </CardActions>

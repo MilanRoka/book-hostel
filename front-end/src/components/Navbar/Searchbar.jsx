@@ -13,31 +13,21 @@ import { getPackage } from '../Api/package/package';
 
 import { useState } from 'react';
 
-const names = [
-  'One month',
-  '3 months package',
-  '6 months package',
-  '1 year package',
-  'Others',
-];
 const Searchbar = () => {
   const [district, setDistrict] = useState('');
   const [packages, setPackages] = useState('');
-  
 
-  const getData = async () =>{
+
+  const getData = async () => {
     const data = await getDistrict();
     setDistrict(data);
-   
+
   }
 
-  const PackageData = async() =>{
+  const PackageData = async () => {
     const data = await getPackage();
     setPackages(data);
   }
-
-
-
 
   React.useEffect(() => {
     getData();
@@ -46,25 +36,12 @@ const Searchbar = () => {
   console.log(district);
 
   const [selectedLocation, setSelectedLocation] = useState('');
-  const locations = [
-    'Kathmandu', 
-    'Lalitpur', 
-    'Bhaktapur', 
-    'Pokhara',
-    'Dharan',
-    'Biratnagar',
-    'Butwal',
-    'Birgunj',
-    'Janakpur',
-    'Dhangadhi',
-  ];
-
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value);
   };
 
   const theme = useTheme();
-  const [packageName, setPersonName] = React.useState([]);
+  const [packageName, setPersonName, districtName] = React.useState([]);
   const handlePackageChange = (event) => {
     const {
       target: { value },
@@ -92,12 +69,12 @@ const Searchbar = () => {
       <div style={{ marginTop: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', height: 500 }} >
         <Box
           sx={{
-            marginTop: 40, padding: 1.5, 
-            borderRadius: 2, display: 'flex', 
-            gap: 2, flexDirection: 'row', justifyContent: 'center', 
-            alignItem: 'center', color: 'white', 
-            backgroundColor: 'white',      
-              boxShadow: 'none', zIndex: 1,
+            marginTop: 40, padding: 1.5,
+            borderRadius: 2, display: 'flex',
+            gap: 2, flexDirection: 'row', justifyContent: 'center',
+            alignItem: 'center', color: 'white',
+            backgroundColor: 'white',
+            boxShadow: 'none', zIndex: 1,
           }}>
           <FormControl sx={{ width: 300 }} >
             <InputLabel id="demo-multiple-name-label">Area of your choice!</InputLabel>
@@ -108,17 +85,15 @@ const Searchbar = () => {
               input={<OutlinedInput label="Area of your choice!" />}
 
             >
-              { 
-              district?.data?.data?.map((item) => (
-                <MenuItem key={item.district_id} value={item.name}>
-                  {item.name}
-                </MenuItem>
-              ))
-
-            }
+              {
+                district?.data?.data?.map((item) => (
+                  <MenuItem key={item.district_id} value={item.name}>
+                    {item.name}
+                  </MenuItem>
+                ))
+              }
             </Select>
           </FormControl>
-
           <FormControl sx={{ width: 300 }} >
             <InputLabel >Package</InputLabel>
             <Select
@@ -126,13 +101,13 @@ const Searchbar = () => {
               onChange={handlePackageChange}
               input={<OutlinedInput label="Package" />}
             >
-           {
-            packages?.data?.map((item) => (
-              <MenuItem key={item._id} value={item.packageName}>
-                {item.packageName}
-              </MenuItem>
-            ))
-           }
+              {
+                packages?.data?.map((item) => (
+                  <MenuItem key={item._id} value={item.packageName}>
+                    {item.packageName}
+                  </MenuItem>
+                ))
+              }
             </Select>
           </FormControl>
 
@@ -144,8 +119,8 @@ const Searchbar = () => {
               color: '#fff',
               fontWeight: 'bold',
               fontSize: 14,
-              textTransform: 'uppercase',        
-              }}
+              textTransform: 'uppercase',
+            }}
             variant="contained"
             type="submit"
           >
