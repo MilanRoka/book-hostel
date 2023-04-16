@@ -7,15 +7,17 @@ import { useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import MenuItem from '@mui/material/MenuItem';
 import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
 import { getDistrict } from '../Api/location/location';
 import { getPackage } from '../Api/package/package';
-
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const Searchbar = () => {
+
   const [district, setDistrict] = useState('');
   const [packages, setPackages] = useState('');
+  const navigate = useNavigate()
 
 
   const getData = async () => {
@@ -66,8 +68,10 @@ const Searchbar = () => {
           src='http://localhost:5173/back2.jpg'
         />
       </div>
-      <div style={{ marginTop: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', height: 500 }} >
-        <Box
+      {/* <div style={{ marginTop: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', height: 500 }} > */}
+      <div className='mt-1  flex justify-center items-center h-16'>
+
+        {/* <Box
           sx={{
             marginTop: 40, padding: 1.5,
             borderRadius: 2, display: 'flex',
@@ -75,46 +79,52 @@ const Searchbar = () => {
             alignItem: 'center', color: 'white',
             backgroundColor: 'white',
             boxShadow: 'none', zIndex: 1,
-          }}>
-          <FormControl sx={{ width: 300 }} >
-            <InputLabel id="demo-multiple-name-label">Area of your choice!</InputLabel>
-            <Select
-              value={selectedLocation}
-              onChange={handleLocationChange}
-              fullWidth
-              input={<OutlinedInput label="Area of your choice!" />}
+          }}> */}
 
-            >
-              {
-                district?.data?.data?.map((item) => (
-                  <MenuItem key={item.district_id} value={item.name}>
-                    {item.name}
-                  </MenuItem>
-                ))
-              }
-            </Select>
-          </FormControl>
-          <FormControl sx={{ width: 300 }} >
-            <InputLabel >Package</InputLabel>
-            <Select
-              value={packageName}
-              onChange={handlePackageChange}
-              input={<OutlinedInput label="Package" />}
-            >
-              {
-                packages?.data?.map((item) => (
-                  <MenuItem key={item._id} value={item.packageName}>
-                    {item.packageName}
-                  </MenuItem>
-                ))
-              }
-            </Select>
-          </FormControl>
+        <div className='mt-100 p-2 rounded-lg flex md:flex-row flex-col items-center bg-white z-10 '>
+          <div className='flex p-2'>
+            <FormControl sx={{ width: 300 }} >
+              <InputLabel id="demo-multiple-name-label">Area of your choice!</InputLabel>
+              <Select
+                value={selectedLocation}
+                onChange={handleLocationChange}
+                fullWidth
+                input={<OutlinedInput label="Area of your choice!" />}
 
+              >
+                {
+                  district?.data?.data?.map((item) => (
+                    <MenuItem key={item.district_id} value={item.name}>
+                      {item.name}
+                    </MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+          </div>
+          <div className='flex p-2'>
+            <FormControl sx={{ width: 300 }} >
+              <InputLabel >Package</InputLabel>
+              <Select
+                value={packageName}
+                onChange={handlePackageChange}
+                input={<OutlinedInput label="Package" />}
+              >
+                {
+                  packages?.data?.map((item) => (
+                    <MenuItem key={item._id} value={item.packageName}>
+                      {item.packageName}
+                    </MenuItem>
+                  ))
+                }
+              </Select>
+            </FormControl>
+          </div>
           <Button
             endIcon={<SearchIcon />}
             style={{
               borderRadius: 10,
+              padding:13,
               backgroundColor: 'green',
               color: '#fff',
               fontWeight: 'bold',
@@ -123,10 +133,12 @@ const Searchbar = () => {
             }}
             variant="contained"
             type="submit"
+            onClick={() => navigate(`/hostel/${selectedLocation}`)}
           >
             Search
           </Button>
-        </Box>
+          {/* </Box> */}
+        </div>
       </div>
     </>
   )

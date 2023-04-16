@@ -11,6 +11,9 @@ module.exports = {
         '128': '33rem',
         '150': '48rem',
     },
+    margin:{
+      '100' : "42rem"
+    }
     },
   },
   plugins: [],

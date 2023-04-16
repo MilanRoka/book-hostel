@@ -323,11 +323,11 @@ function DashboardContent() {
                         <Toolbar />
                         <h1 style={{ padding: 10, fontWeight: 'bold', fontSize: '20px' }}>Property Admin List</h1>
                         <Box sx={{ width: '100%', p: 2 }}>
-                            <TableContainer component={Paper} sx={{ width: 900 }}>
+                            <TableContainer component={Paper} sx={{ width: '100%' }}>
                                 <Table aria-label="collapsible table">
                                     <TableHead>
-                                        <TableRow>
-                                            <TableCell align="left">Property Name</TableCell>
+                                        <TableRow >
+                                            <TableCell align="center">Property Name</TableCell>
                                             <TableCell align="center">Email</TableCell>
                                             <TableCell align="center">City</TableCell>
                                             <TableCell align="center">Status</TableCell>

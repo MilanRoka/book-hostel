@@ -146,21 +146,21 @@ const homeitems = () => {
   const navigate = useNavigate()
   const theme = useTheme();
   const [hostels, setHostels] = React.useState("")
-  const fetchData = ()=> {
+  const fetchData = () => {
     axios.get('http://localhost:3000/property')
-    .then((res) => {
-      //check if approved
-      const response = res.data
-      const filteredData = response.filter(
-        (item) => item.status === 'Approved'
+      .then((res) => {
+        //check if approved
+        const response = res.data
+        const filteredData = response.filter(
+          (item) => item.status === 'Approved'
 
-      )
-      setHostels(filteredData)
-      
-    })
-    .catch((err) => {
-      console.log(err)
-    })
+        )
+        setHostels(filteredData)
+
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 
   React.useEffect(() => {
@@ -174,7 +174,8 @@ const homeitems = () => {
     <>
       <div>
         {/* image with button */}
-        <Box style={{ display: 'flex', gap: 30, flexWrap: 'wrap', marginTop: 50, justifyContent: 'center', padding: 15 }}>
+        <Typography style={{marginTop: 500, display: 'flex', justifyContent: 'center', alignItems: 'center', fontWeight: 'bold', fontSize: 25}}> Explore with Cities</Typography>
+        <Box style={{ display: 'flex', gap: 30, flexWrap: 'wrap',  justifyContent: 'center', padding: 15 }}>
           {images.map((image) => (
             <ImageButton
               focusRipple
@@ -207,18 +208,18 @@ const homeitems = () => {
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', padding: 10, flexDirection: 'column' }} >
         <div>
-          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 1, fontWeight:'bold',fontSize:25 }} >Recent Picks</h1>
+          <h1 style={{ display: 'flex', justifyContent: 'center', alignItems: 'center',  fontWeight: 'bold', fontSize: 25 }} >Recent Picks</h1>
         </div>
         <div style={{ display: 'flex', gap: 30, flexWrap: 'wrap', marginTop: 50, justifyContent: 'center' }}>
           {
-            
+
             hostels && hostels?.map((item) => {
               return (
                 <Card
                   key={
                     item._id
                   }
-                sx={{ maxWidth: 345 }}>
+                  sx={{ maxWidth: 345 }}>
                   <CardActionArea>
                     <CardMedia
                       component="img"

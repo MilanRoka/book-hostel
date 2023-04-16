@@ -17,6 +17,7 @@ import HostelPage from './components/Hostel/HostelPage'
 import '@fontsource/public-sans';
 import SuperAdmin from './components/Dashboard/SuperAdmin';
 import Checkout from './components/Booking/checkout';
+import HostelList from './components/Hostel/HostelList';
 
 
 
@@ -40,6 +41,7 @@ const App = () => {
                <Route path='/hostelpage/:id' element={<HostelPage />} />
                <Route path='/superadmin' element={<SuperAdmin />} />
                <Route path='/checkout' element={<Checkout/>}/>
+               <Route path='/hostel/:city' element={<HostelList/>} />
             </Routes>
          </Router>
       </>

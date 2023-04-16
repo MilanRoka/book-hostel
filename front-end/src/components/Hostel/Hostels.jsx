@@ -79,11 +79,12 @@ const data = [
 const Hostels = () => {
   return (
     <>
-
+      <div>
       <Navbar />
       <Searchbar />
+      </div>
       <Typography style={{ display: 'flex',alignItems:'center', marginTop: 60, justifyContent: 'center',fontWeight:'bold', fontSize:'30px' }}>Hostel Suggestions</Typography>
-      <div style={{ display: 'flex', flexDirection: 'row', gap: 50, flexWrap: 'wrap', marginTop: 30, justifyContent: 'center' }}>      
+      <div style={{ display: 'flex', flexDirection: 'row', gap: 50, flexWrap: 'wrap', marginTop: 420, marginBottom:50, justifyContent: 'center' }}>      
         {
           data.map((item) => {
             return (

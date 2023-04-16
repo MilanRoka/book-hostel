@@ -110,4 +110,22 @@ router.put("/status/:id", async (req, res) => {
     res.json(err);
   }
 });
+
+//get by location
+router.get("/location/:city", async (req, res) => {
+  const { city } = req.params;
+  try {
+    const property = await Property.find({
+      city: city,
+    })
+    res.json(property);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
+
+
+
+
 module.exports = router;
