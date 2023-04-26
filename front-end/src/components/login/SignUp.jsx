@@ -12,6 +12,7 @@ import axios from 'axios'
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router-dom"
 import { ToastContainer, toast } from 'react-toastify';
+import { FormControl } from '@mui/material';
 
 
 
@@ -94,6 +95,9 @@ export default function SignUp() {
               <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
                 <Grid container spacing={2}>
                   <Grid item xs={12} sm={6}>
+                    <FormControl
+                      required
+                    >
                     <TextField
                       type='text'
                       autoComplete="given-name"
@@ -104,6 +108,7 @@ export default function SignUp() {
                       label="First Name"
                       autoFocus
                     />
+                    </FormControl>
                   </Grid>
                   <Grid item xs={12} sm={6}>
                     <TextField

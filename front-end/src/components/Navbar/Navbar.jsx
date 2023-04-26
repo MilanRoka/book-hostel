@@ -59,11 +59,16 @@ function Navbar() {
                 <Button href="/" key="home">Home</Button>
                 <Button href="/hostels" key="hostels">Hostels</Button>
                 <Button href="/register property" key="list-property">List Your Property</Button>
+
                 {isLoggedIn ?
+                <>
+                <Button href="/property-details" key="property-details">Property Details</Button>
+
                   <ButtonGroup key="loggedin-group">
                     <Button onClick={handleLogout} key="logout">Log Out</Button>
                     <Button href="#" key="profile"> <PersonIcon /> </Button>
                   </ButtonGroup>
+                  </>
                   :
                   <ButtonGroup key="loggedout-group">
                     <Button href="/SignIn" onClick={handleLogin} key="signin">Sign In</Button>
