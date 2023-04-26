@@ -18,25 +18,19 @@ const Searchbar = () => {
   const [district, setDistrict] = useState('');
   const [packages, setPackages] = useState('');
   const navigate = useNavigate()
-
-
   const getData = async () => {
     const data = await getDistrict();
     setDistrict(data);
-
   }
-
   const PackageData = async () => {
     const data = await getPackage();
     setPackages(data);
   }
-
   React.useEffect(() => {
     getData();
     PackageData();
   }, [])
   console.log(district);
-
   const [selectedLocation, setSelectedLocation] = useState('');
   const handleLocationChange = (event) => {
     setSelectedLocation(event.target.value);
@@ -53,7 +47,6 @@ const Searchbar = () => {
       typeof value === 'string' ? value.split(',') : value,
     );
   };
-
   return (
     <>
       <div >
@@ -82,7 +75,7 @@ const Searchbar = () => {
           }}> */}
 
         <div className='mt-100 p-2 rounded-lg flex md:flex-row flex-col items-center bg-white z-10 '>
-          <div className='flex p-2'>
+          <Box className='flex p-2'>
             <FormControl sx={{ width: 300 }} >
               <InputLabel id="demo-multiple-name-label">Area of your choice!</InputLabel>
               <Select
@@ -101,7 +94,7 @@ const Searchbar = () => {
                 }
               </Select>
             </FormControl>
-          </div>
+          </Box>
           <div className='flex p-2'>
             <FormControl sx={{ width: 300 }} >
               <InputLabel >Package</InputLabel>

@@ -6,9 +6,6 @@ import "react-datepicker/dist/react-datepicker.css";
 import Footer from '../Footer/Footer';
 import Searchbar from '../Navbar/Searchbar';
 
-
-
-
 const Home = () => {
   return (
     <>  
@@ -19,5 +16,4 @@ const Home = () => {
     </>
   )
 }
-
 export default Home

@@ -17,7 +17,9 @@ router.post("/create", async (req, res) => {
     street: req.body.street,
     password: hashPwd,
     confirmPassword: hashPwd,
-    image : req.body.image
+    image : req.body.image,
+    bedrooms : req.body.bedrooms,
+    occupancy : req.body.occupancy
   });
   try {
     const savedProperty = await property.save();

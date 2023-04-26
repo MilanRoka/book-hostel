@@ -19,12 +19,18 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import Searchbar from '../../Navbar/Searchbar';
 
 
 export default function RegistrationForm() {
 
     const [image, setImage] = useState("")
     const [propertyName, setPropertyName] = useState("")
+
+    const [bedrooms, setBedrooms] = useState("")
+    const [occupancy, setOccupancy] = useState("")
+
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [city, setCity] = useState("")
@@ -63,7 +69,7 @@ export default function RegistrationForm() {
         )
     }
     console.log(propertyName)
-    const handleSubmit = async (event) =>{
+    const handleSubmit = async (event) => {
         event.preventDefault();
 
         console.log(event.currentTarget)
@@ -73,56 +79,49 @@ export default function RegistrationForm() {
         formData.append("upload_preset", "hzmji8mb");
         formData.append("cloud_name", "de7rdmlca");
         const hello = await axios.post("https://api.cloudinary.com/v1_1/de7rdmlca/image/upload", formData);
-        
-        if(password=== confirmPassword){
-        const payload = {
-            propertyName: propertyName,
-            email: email,
-            phone: phone,
-            city: city,
-            state: state,
-            address1: address1,
-            password: password,
-            image: hello.data.url,
-            street: street
+
+        if (password === confirmPassword) {
+            const payload = {
+                propertyName: propertyName,
+                email: email,
+                phone: phone,
+                city: city,
+                state: state,
+                address1: address1,
+                password: password,
+                image: hello.data.url,
+                street: street,
+
+                bedrooms: bedrooms,
+                occupancy: occupancy,
 
 
+            }
+
+
+            console.log(payload);
+            for (let key in payload) {
+                console.log(key, payload[key]);
+            }
+            axios.post("http://localhost:3000/property/create", payload).then((res) => {
+                success();
+                navigate('/');
+            });
         }
-  
-
-        console.log(payload);
-        for (let key in payload) {
-            console.log(key, payload[key]);
+        else {
+            console.log("error")
         }
-        axios.post("http://localhost:3000/property/create", payload).then((res) => {
-            success();
-            navigate('/');
-        });
-    }
-    else{
-        console.log("error")
-    }
 
     };
     return (
         <>
             <Navbar />
 
+            <Typography component="h1" variant="h4" align="center" sx={{ fontWeight: 'bold', color: 'green' }}>
+                PROPERTY & CONTACT DETAILS
+            </Typography>
+
             <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'flex-start' }}>
-                <div style={{ flex: 1 }}>
-                    <img
-                        style={{
-                            height: 'auto',
-                            maxWidth: '100%',
-                            position: 'absolute',
-                            top: '50%',
-                            left: '30%',
-                            transform: 'translate(-50%, -50%)',
-                            width: '40%',
-                        }}
-                        src='http://localhost:5173/undraw1.png'
-                    />
-                </div>
                 <div style={{
                     flex: 1,
                     display: 'flex',
@@ -130,65 +129,90 @@ export default function RegistrationForm() {
                     alignItems: 'center'
                 }}>
                     <React.Fragment>
-                        <Container component="main" maxWidth="sm" sx={{ mb: 4 }}
-                        >
-                            <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}
-                            >
-                                <Typography component="h1" variant="h4" align="center" sx={{ marginBottom: 5, fontWeight: 'bold', color: 'green' }}>
-                                    Register Property
-                                </Typography>
-                                <Typography variant="h6" gutterBottom sx={{ fontWeight: 'bold', color: 'green' }}>
-                                    Details
-                                </Typography>
+                        <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
+                            <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
                                 <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
-                                    <Grid container spacing={3}
-                                    >
-
-                                        <Grid item xs={12}>
+                                    <Grid container spacing={3}>
+                                        <Grid item xs={12} >
                                             <TextField
                                                 required
                                                 id="propertyName"
                                                 name="propertyName"
                                                 label="Property Name"
                                                 fullWidth
-                                                
-                                                autoComplete="shipping address-line1"
                                                 // {...register("property1")}
-                                                variant="standard"
-                                                onChange={(e)=>setPropertyName(e.target.value)}
-                                              
-                                                />
+                                                variant="outlined"
+                                                onChange={(e) => setPropertyName(e.target.value)} />
                                         </Grid>
-                                        <Grid item xs={12}>
+
+
+
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                required
+                                                type='number'
+                                                id="bedrooms"
+                                                name="bedrooms"
+                                                label="Total number of bedrooms"
+                                                fullWidth
+                                                // {...register("property1")}
+                                                variant="outlined"
+                                                onChange={(e) => setBedrooms(e.target.value)} />
+                                        </Grid>
+
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                required
+                                                type='number'
+                                                id="occupancy"
+                                                name="occupancy"
+                                                label="Total Occupancy(Total no. of beds)"
+                                                fullWidth
+                                                // {...register("property1")}
+                                                variant="outlined"
+                                                onChange={(e) => setOccupancy(e.target.value)} />
+                                        </Grid>
+
+
+
+                                        <Grid item xs={12} sm={6}>
                                             <TextField
                                                 required
                                                 id="email"
                                                 name="email"
-                                                label="Email"
+                                                label="Property Email"
                                                 fullWidth
-                                                autoComplete="shipping address-line1"
                                                 // {...register("email")}
-                                                variant="standard" 
+                                                variant="outlined"
                                                 onChange={
-                                                    (e)=>setEmail(e.target.value)
-                                                
-                                                }
-                                                />
+                                                    (e) => setEmail(e.target.value)
+                                                } />
                                         </Grid>
-                                        <Grid item xs={12}>
+                                        <Grid item xs={12} sm={6}>
                                             <TextField
                                                 required
                                                 id="phone"
                                                 name="phone"
                                                 label="Phone Number"
                                                 fullWidth
-                                                autoComplete="shipping address-line1"
                                                 // {...register("email")}
-                                                variant="standard" 
+                                                variant="outlined"
                                                 onChange={
-                                                    (e)=>setPhone(e.target.value)
-                                                }
-                                                />
+                                                    (e) => setPhone(e.target.value)
+                                                } />
+                                        </Grid>
+                                        <Grid item xs={12} sm={6}>
+                                            <TextField
+                                                required
+                                                id="state"
+                                                name="state"
+                                                label="State/Province/Region"
+                                                fullWidth
+                                                // {...register("state")}
+                                                variant="outlined"
+                                                onChange={
+                                                    (e) => setState(e.target.value)
+                                                } />
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
@@ -197,65 +221,50 @@ export default function RegistrationForm() {
                                                 name="city"
                                                 label="City"
                                                 fullWidth
-                                                autoComplete="shipping address-level2"
                                                 // {...register("city")}
-                                                variant="standard" 
+                                                variant="outlined"
                                                 onChange={
-                                                    (e)=>setCity(e.target.value)
-                                                }
-                                                />
+                                                    (e) => setCity(e.target.value)
+                                                } />
                                         </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <TextField
-                                                id="state"
-                                                name="state"
-                                                label="State/Province/Region"
-                                                fullWidth
-                                                // {...register("state")}
-                                                variant="standard" 
-                                                onChange={
-                                                    (e)=>setState(e.target.value)
-                                                }
-                                                />
-                                        </Grid>
+
                                         <Grid item xs={12} sm={6}>
                                             <TextField
                                                 required
                                                 id="address1"
                                                 name="address1"
-                                                label="Address Line 1"
+                                                label="Address Line"
                                                 fullWidth
-                                                autoComplete="shipping address-line1"
-                                                variant="standard"
+                                                variant="outlined"
                                                 onChange={
-                                                    (e)=>setAddress1(e.target.value)
-                                                }
-                                            />
+                                                    (e) => setAddress1(e.target.value)
+                                                } />
 
                                         </Grid>
                                         <Grid item xs={12} sm={6}>
                                             <TextField
+                                                required
                                                 id="street"
                                                 name="street"
                                                 label="Street"
                                                 fullWidth
                                                 // {...register("state")}
-                                                variant="standard" 
+                                                variant="outlined"
                                                 onChange={
-                                                    (e)=>setStreet(e.target.value)
-                                                }
-                                                
-                                                />
+                                                    (e) => setStreet(e.target.value)
+                                                } />
                                         </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <FormControl variant="standard">
-                                                <InputLabel htmlFor="standard-adornment-password">Password</InputLabel>
-                                                <Input
+                                        <Grid >
+                                        <FormControl sx={{ m: 3, width: '46ch' }} variant="outlined">
+                                                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+                                                <OutlinedInput
+                                                    required
+                                                    variant="outlined"
                                                     name="password"
                                                     id="adornment-password"
                                                     type={showPassword ? 'text' : 'password'}
                                                     onChange={
-                                                        (e)=>setPassword(e.target.value)
+                                                        (e) => setPassword(e.target.value)
                                                     }
                                                     endAdornment={
                                                         <InputAdornment position="end">
@@ -268,36 +277,41 @@ export default function RegistrationForm() {
                                                             </IconButton>
                                                         </InputAdornment>
                                                     }
-                                                />
+                                                    label="Password"
+                                                     />
                                             </FormControl>
                                         </Grid>
-                                        <Grid item xs={12} sm={6}>
-                                            <FormControl variant="standard">
-                                                <InputLabel htmlFor="standard-password">Confirm Password</InputLabel>
-                                                <Input
+                                        <Grid >
+                                            <FormControl sx={{ mt:3, width: '46ch' }} variant="outlined">
+                                                <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
+                                                <OutlinedInput
+                                                    required
                                                     name="confirmPassword"
-                                                    id="standard-confirmPassword"
+                                                    id="outlined-adornment-password"
                                                     type={showConfirmPassword ? 'text' : 'password'}
                                                     onChange={
-                                                        (e)=>setConfirmPassword(e.target.value)
+                                                        (e) => setConfirmPassword(e.target.value)
                                                     }
                                                     endAdornment={
                                                         <InputAdornment position="end">
                                                             <IconButton
-                                                                aria-label=" password visibility"
+                                                                aria-label="toggle password visibility"
                                                                 onClick={() => handleClickShowPassword("confirmPassword")}
                                                                 onMouseDown={handleMouseDownPassword}
+                                                                edge="end"
                                                             >
                                                                 {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
                                                             </IconButton>
                                                         </InputAdornment>
                                                     }
-                                                />
+                                                    label="Confirm Password"
+                                                    />
                                             </FormControl>
                                         </Grid>
+
                                     </Grid>
                                     <div>
-                                        <Input sx={{ pt: 13 }} type="file" onChange={(e) => setImage(e.target.files[0])} />
+                                        <Input sx={{ pt: 5 }} type="file" onChange={(e) => setImage(e.target.files[0])} />
                                     </div>
                                     <div style={{ alignContent: 'center', display: 'flex', justifyContent: 'center', marginTop: 40 }}>
                                         <Button variant="contained" type='submit' sx={{ backgroundColor: 'green' }}>SUBMIT</Button>

@@ -191,23 +191,7 @@ function DashboardContent() {
     const handleClose = () =>{
         setModalOpen(false)
     }
-
-    // const style = () =>{
-    //     return {
-    //         modal:{
-    //             position: 'absolute',
-    //             width: 400,
-    //             backgroundColor: 'white',
-    //             border: '2px solid #000',
-    //             boxShadow: 24,
-    //             padding: 16,
-    //             top: '50%',
-    //             left: '50%',
-    //             transform: 'translate(-50%, -50%)',
-    //         }
-    //     } 
-    // }
-
+    
     const handleOpen = () => {
         setModalOpen(true)
     }

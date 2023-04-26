@@ -42,9 +42,11 @@ const App = () => {
                <Route path='/superadmin' element={<SuperAdmin />} />
                <Route path='/checkout' element={<Checkout/>}/>
                <Route path='/hostel/:city' element={<HostelList/>} />
+               <Route path='*' element={<div className='flex justify-center items-center h-screen text-4xl text-red-600'>Page not found !</div>} />
             </Routes>
          </Router>
       </>
    )
 }
 export default App;
+
