@@ -74,9 +74,9 @@ const Searchbar = () => {
             boxShadow: 'none', zIndex: 1,
           }}> */}
 
-        <div className='mt-100 p-2 rounded-lg flex md:flex-row flex-col items-center bg-white z-10 '>
-          <Box className='flex p-2'>
-            <FormControl sx={{ width: 300 }} >
+        <div className='mt-100 p-2 rounded-lg flex md:flex-row flex-col items-center md:bg-white z-10  '>
+          <Box className='flex p-2 sm: bg-slate-50 '>
+            <FormControl sx={{ width: 300 }}   >
               <InputLabel id="demo-multiple-name-label">Area of your choice!</InputLabel>
               <Select
                 value={selectedLocation}
@@ -84,7 +84,7 @@ const Searchbar = () => {
                 fullWidth
                 input={<OutlinedInput label="Area of your choice!" />}
 
-              >
+              > 
                 {
                   district?.data?.data?.map((item) => (
                     <MenuItem key={item.district_id} value={item.name}>
@@ -95,7 +95,7 @@ const Searchbar = () => {
               </Select>
             </FormControl>
           </Box>
-          <div className='flex p-2'>
+          <div className='flex p-2 sm: bg-slate-50'>
             <FormControl sx={{ width: 300 }} >
               <InputLabel >Package</InputLabel>
               <Select

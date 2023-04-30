@@ -141,7 +141,7 @@ const HostelPage = () => {
         </div>
       </div>
       <div className="flex flex-col md:flex-row md:pl-24 py-10 ">
-        <div className="flex w-1/2 md:w-1/2   ">
+        <div className="flex w-1/2 md:w-1/2 ">
           <img src={detail && detail?.image} alt="" />
         </div>
         <div className="flex md:w-1/2 w-full py-10 ">
@@ -173,8 +173,9 @@ const HostelPage = () => {
               <li >
                 Complimentary pick-up and drop-off.
               </li>
-            </div>                
-            <div className='flex flex-col'>
+            </div>      
+          
+            <div className="flex flex-col justify-center items-center">
               <Tabs
                 value={activeTab}
                 onChange={handleTabChange}
