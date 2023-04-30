@@ -18,7 +18,7 @@ import '@fontsource/public-sans';
 import SuperAdmin from './components/Dashboard/SuperAdmin';
 import Checkout from './components/Booking/checkout';
 import HostelList from './components/Hostel/HostelList';
-
+import PropertyDetail from './components/Hostel/PropertyDetail';
 
 
 const App = () => {
@@ -26,6 +26,7 @@ const App = () => {
       <>
          <Router>
             <Routes>
+               
                <Route exact path='/' element={<Home />} />
                <Route path='/signup' element={<SignUp />} />
                <Route path='/signin' element={<SignIn />} />
@@ -34,6 +35,7 @@ const App = () => {
                <Route path='/hostels' element={<Hostels />} />
                <Route path='/register property' element={<RegistrationForm />} />
                <Route path='/forgotpw' element={<Forgotpw />} />
+               <Route path='/property-details' element={<PropertyDetail />} />
                <Route path='/dashboard' element={<Dashboard />} />
                <Route element={<Records />} />
                <Route path='/homeitems' element={<Homeitems />} />
@@ -42,6 +44,7 @@ const App = () => {
                <Route path='/superadmin' element={<SuperAdmin />} />
                <Route path='/checkout' element={<Checkout/>}/>
                <Route path='/hostel/:city' element={<HostelList/>} />
+               
                <Route path='*' element={<div className='flex justify-center items-center h-screen text-4xl text-red-600'>Page not found !</div>} />
             </Routes>
          </Router>

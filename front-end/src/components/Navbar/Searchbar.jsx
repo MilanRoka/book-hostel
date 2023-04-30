@@ -123,8 +123,19 @@ const Searchbar = () => {
               fontWeight: 'bold',
               fontSize: 14,
               textTransform: 'uppercase',
+              //hover
+              '&:hover': {
+                backgroundColor: 'green',
+                color: '#fff',
+                fontWeight: 'bold',
+                fontSize: 14,
+                textTransform: 'uppercase',
+              },
+              
             }}
             variant="contained"
+            disabled={!selectedLocation}
+            
             type="submit"
             onClick={() => navigate(`/hostel/${selectedLocation}`)}
           >

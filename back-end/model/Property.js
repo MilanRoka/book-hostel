@@ -36,9 +36,11 @@ const PropertySchema = new mongoose.Schema(
       required: true,
       default: "Pending",
     },
-    image:{
-      type: String,
-    },
+    image:[
+      {
+        type: String
+      }
+    ],
     bedrooms:{
       type: Number,
       required: true,
