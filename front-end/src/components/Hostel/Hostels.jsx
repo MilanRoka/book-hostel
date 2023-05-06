@@ -10,73 +10,33 @@ import CardCover from '@mui/joy/CardCover';
 import CardContent from '@mui/joy/CardContent';
 import Typography from '@mui/joy/Typography';
 import LocationOnRoundedIcon from '@mui/icons-material/LocationOnRounded';
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
-
-const data = [
-  {
-    title: 'Hostel Yog',
-    description: 'Thamel, Kathmandu',
-    image: 'http://localhost:5173/card1.jpg',
-  },
-  {
-    title: 'Fireflies BagPackers',
-    description: 'Paknajol, Kathmandu',
-    image: 'http://localhost:5173/card2.jpg',
-  },
-  {
-    title: 'Vision Hostel',
-    description: 'Ghattekulo, Kathmandu',
-    image: 'http://localhost:5173/card2.jpg',
-  },
-  {
-    title: 'Hostel Yog',
-    description: 'Thamel, Kathmandu',
-    image: 'http://localhost:5173/card1.jpg',
-  },
-  {
-    title: 'Fireflies BagPackers',
-    description: 'Paknajol, Kathmandu',
-    image: 'http://localhost:5173/card2.jpg',
-  },
-  {
-    title: 'Vision Hostel',
-    description: 'Ghattekulo, Kathmandu',
-    image: 'http://localhost:5173/card2.jpg',
-  },
-  {
-    title: 'Hostel Yog',
-    description: 'Thamel, Kathmandu',
-    image: 'http://localhost:5173/card1.jpg',
-  },
-  {
-    title: 'Fireflies BagPackers',
-    description: 'Paknajol, Kathmandu',
-    image: 'http://localhost:5173/card2.jpg',
-  },
-  {
-    title: 'Fireflies BagPackers',
-    description: 'Paknajol, Kathmandu',
-    image: 'http://localhost:5173/card2.jpg',
-  },
-  {
-    title: 'Vision Hostel',
-    description: 'Ghattekulo, Kathmandu',
-    image: 'http://localhost:5173/card2.jpg',
-  },
-  {
-    title: 'Hostel Yog',
-    description: 'Thamel, Kathmandu',
-    image: 'http://localhost:5173/card1.jpg',
-  },
-  {
-    title: 'Fireflies BagPackers',
-    description: 'Paknajol, Kathmandu',
-    image: 'http://localhost:5173/card2.jpg',
-  }
-]
 
 
 const Hostels = () => {
+  const navigate = useNavigate()
+  const [hostels, setHostels] = React.useState([])
+  const fetchData = () => {
+    axios.get('http://localhost:3000/property')
+      .then((res) => {
+        //check if approved
+        const response = res.data
+        const filteredData = response.filter(
+          (item) => item.status === 'Approved'
+        )
+        setHostels(filteredData)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+
+  React.useEffect(() => {
+    fetchData()
+  }, [])
+  console.log(hostels)
   return (
     <>
       <div>
@@ -86,12 +46,12 @@ const Hostels = () => {
       <Typography style={{ display: 'flex',alignItems:'center', marginTop: 60, justifyContent: 'center',fontWeight:'bold', fontSize:'30px' }}>Hostel Suggestions</Typography>
       <div style={{ display: 'flex', flexDirection: 'row', gap: 50, flexWrap: 'wrap', marginTop: 420, marginBottom:50, justifyContent: 'center' }}>      
         {
-          data.map((item) => {
+          hostels && hostels?.map((item) => {
             return (
               <Card sx={{ minHeight: '280px', width: 320 }}>
                 <CardCover>
                   <img
-                    src={item.image}
+                    src={item.image[0]}
 
                     // src='http://localhost:5173/card2.jpg'
                     loading="lazy"
@@ -106,7 +66,7 @@ const Hostels = () => {
                 />
                 <CardContent sx={{ justifyContent: 'flex-end' }}>
                   <Typography level="h2" fontSize="lg" textColor="#fff" mb={1}>
-                    {item.title}
+                    {item.propertyName}
                   </Typography>
                   <div className='flex flex-wrap'>
                     <Typography
@@ -114,7 +74,7 @@ const Hostels = () => {
                       textColor="neutral.300"
                       className="w-3/4"
                     >
-                      {item.description}
+                      {item.city}
                     </Typography>
                     <Button
                     >
@@ -122,6 +82,9 @@ const Hostels = () => {
                         textColor="lightGreen"
                         level='h6'
                         className="font-bold"
+                        onClick={() => {
+                          navigate('/hostelPage/' + item._id)
+                        }}
                       >
                         Book
                       </Typography>

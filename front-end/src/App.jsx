@@ -19,6 +19,8 @@ import SuperAdmin from './components/Dashboard/SuperAdmin';
 import Checkout from './components/Booking/checkout';
 import HostelList from './components/Hostel/HostelList';
 import PropertyDetail from './components/Hostel/PropertyDetail';
+import Image from './components/Hostel/HostelRegistration/Image';
+import Services from './components/Hostel/HostelRegistration/Services';
 
 
 const App = () => {
@@ -44,8 +46,9 @@ const App = () => {
                <Route path='/superadmin' element={<SuperAdmin />} />
                <Route path='/checkout' element={<Checkout/>}/>
                <Route path='/hostel/:city' element={<HostelList/>} />
+               <Route path='/image' element={<Image />} />
+               <Route path='/services' element={<Services />} />
                
-               <Route path='*' element={<div className='flex justify-center items-center h-screen text-4xl text-red-600'>Page not found !</div>} />
             </Routes>
          </Router>
       </>

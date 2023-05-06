@@ -150,7 +150,7 @@ const PropertyDetail = () => {
                   />
                 </Grid>
 
-               
+
                 <Grid item xs={12} sm={6}>
                   <TextField
                     id="bedrooms"
@@ -189,55 +189,57 @@ const PropertyDetail = () => {
                   </Button>
                 </Grid>
               </Grid>
+
             </form>
+            
           </CardContent>
         </Card>
       </Grid>
       <Grid item xs={12} sm={6} sx={{ position: 'relative' }}>
-  <ImageList rowHeight={250} cols={3} gap={8} 
-    padding={2}
-  sx={{
-    overflow: "hidden",
-    borderRadius: '10px',
-    border: '1px solid #eee',
-    boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.1)',
-  }}>
-    {dummyImageList.map((item) => (
-      <ImageListItem
-        key={item.img}
-        sx={{
-          width: "100%",
-          height: "100%",
-          objectFit: "cover",
-          objectPosition: "center",
-          transition: "transform 0.2s ease-in-out",
-          "&:hover": {
-            transform: "scale(1.3)",
-            zIndex: 1,
-          },
-        }}
-      >
-        <img
-          src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
-          alt="property"
-          loading="lazy"
-        />
-      </ImageListItem>
-    ))}
-  </ImageList>
-    <Button 
-        variant="contained"
-        color="primary"
-        sx={{
+        <ImageList rowHeight={250} cols={3} gap={8}
+          padding={2}
+          sx={{
+            overflow: "hidden",
+            borderRadius: '10px',
+            border: '1px solid #eee',
+            boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.1)',
+          }}>
+          {dummyImageList.map((item) => (
+            <ImageListItem
+              key={item.img}
+              sx={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center",
+                transition: "transform 0.2s ease-in-out",
+                "&:hover": {
+                  transform: "scale(1.3)",
+                  zIndex: 1,
+                },
+              }}
+            >
+              <img
+                src={`${item.img}?w=164&h=164&fit=crop&auto=format`}
+                alt="property"
+                loading="lazy"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+        <Button
+          variant="contained"
+          color="primary"
+          sx={{
             position: 'absolute',
             bottom: '10px',
             right: '10px',
-            }}
+          }}
         >
-        Add Image
-    </Button>
+          Add Image
+        </Button>
 
-</Grid>
+      </Grid>
     </Grid>
   );
 };

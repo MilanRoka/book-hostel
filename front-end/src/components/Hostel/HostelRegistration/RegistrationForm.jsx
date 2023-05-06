@@ -7,38 +7,70 @@ import Container from '@mui/material/Container';
 import Button from '@mui/material/Button';
 import Navbar from '../../Navbar/Navbar';
 import Footer from '../../Footer/Footer';
-import { FormControl } from '@mui/material';
-import Box from '@mui/material/Box';
-import Visibility from '@mui/icons-material/Visibility';
-import VisibilityOff from '@mui/icons-material/VisibilityOff';
-import IconButton from '@mui/material/IconButton';
 import Input from '@mui/material/Input';
-import InputLabel from '@mui/material/InputLabel';
-import InputAdornment from '@mui/material/InputAdornment';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { Alert } from '@mui/material';
 import { useState } from 'react';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import Searchbar from '../../Navbar/Searchbar';
+
+import { ImageList, ImageListItem, } from "@mui/material";
+
+const dummyImageList = [
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+    {
+        img: "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
+        title: "Bedroom",
+    },
+
+]
 
 
 export default function RegistrationForm() {
 
-    const [image, setImage] = useState("")
-    const [propertyName, setPropertyName] = useState("")
 
+    const [propertyName, setPropertyName] = useState("")
+    const [ownersName, setOwnersName] = useState("")
     const [bedrooms, setBedrooms] = useState("")
     const [occupancy, setOccupancy] = useState("")
-
     const [email, setEmail] = useState("")
     const [phone, setPhone] = useState("")
     const [city, setCity] = useState("")
     const [state, setState] = useState("")
     const [street, setStreet] = useState("")
     const [address1, setAddress1] = useState("")
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
+    const [image, setImage] = useState("")
+
 
     const submitImage = async () => {
         const data = new FormData()
@@ -51,18 +83,8 @@ export default function RegistrationForm() {
     }
 
     const navigate = useNavigate();
-    const [showPassword, setShowPassword] = useState(false);
-    const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-    const handleClickShowPassword = (type) => {
-        if (type === "password") {
-            setShowPassword(!showPassword);
-        } else {
-            setShowConfirmPassword(!showConfirmPassword);
-        }
-    };
-    const handleMouseDownPassword = (event) => {
-        event.preventDefault();
-    };
+
+
     const success = () => {
         return (
             <Alert severity="success">This is a success alert — check it out!</Alert>
@@ -80,7 +102,7 @@ export default function RegistrationForm() {
         formData.append("cloud_name", "de7rdmlca");
         const hello = await axios.post("https://api.cloudinary.com/v1_1/de7rdmlca/image/upload", formData);
 
-        if (password === confirmPassword) {
+        if (required === true) {
             const payload = {
                 propertyName: propertyName,
                 email: email,
@@ -88,16 +110,11 @@ export default function RegistrationForm() {
                 city: city,
                 state: state,
                 address1: address1,
-                password: password,
                 image: hello.data.url,
                 street: street,
-
                 bedrooms: bedrooms,
                 occupancy: occupancy,
-
-
             }
-
 
             console.log(payload);
             for (let key in payload) {
@@ -131,7 +148,7 @@ export default function RegistrationForm() {
                     <React.Fragment>
                         <Container component="main" maxWidth="md" sx={{ mb: 4 }}>
                             <Paper variant="outlined" sx={{ my: { xs: 3, md: 6 }, p: { xs: 2, md: 3 } }}>
-                                <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                                <form component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
                                     <Grid container spacing={3}>
                                         <Grid item xs={12} >
                                             <TextField
@@ -145,7 +162,16 @@ export default function RegistrationForm() {
                                                 onChange={(e) => setPropertyName(e.target.value)} />
                                         </Grid>
 
-
+                                        <Grid item xs={12}>
+                                            <TextField
+                                                required
+                                                id="ownersName"
+                                                name="ownersName"
+                                                label="Owner's Name"
+                                                fullWidth
+                                                variant="outlined"
+                                                onChange={(e) => setOwnersName(e.target.value)} />
+                                        </Grid>
 
                                         <Grid item xs={12} sm={6}>
                                             <TextField
@@ -248,75 +274,17 @@ export default function RegistrationForm() {
                                                 name="street"
                                                 label="Street"
                                                 fullWidth
-                                                // {...register("state")}
                                                 variant="outlined"
                                                 onChange={
                                                     (e) => setStreet(e.target.value)
                                                 } />
                                         </Grid>
-                                        <Grid >
-                                        <FormControl sx={{ m: 3, width: '46ch' }} variant="outlined">
-                                                <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
-                                                <OutlinedInput
-                                                    required
-                                                    variant="outlined"
-                                                    name="password"
-                                                    id="adornment-password"
-                                                    type={showPassword ? 'text' : 'password'}
-                                                    onChange={
-                                                        (e) => setPassword(e.target.value)
-                                                    }
-                                                    endAdornment={
-                                                        <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={() => handleClickShowPassword("password")}
-                                                                onMouseDown={handleMouseDownPassword}
-                                                            >
-                                                                {showPassword ? <VisibilityOff /> : <Visibility />}
-                                                            </IconButton>
-                                                        </InputAdornment>
-                                                    }
-                                                    label="Password"
-                                                     />
-                                            </FormControl>
-                                        </Grid>
-                                        <Grid >
-                                            <FormControl sx={{ mt:3, width: '46ch' }} variant="outlined">
-                                                <InputLabel htmlFor="outlined-adornment-password">Confirm Password</InputLabel>
-                                                <OutlinedInput
-                                                    required
-                                                    name="confirmPassword"
-                                                    id="outlined-adornment-password"
-                                                    type={showConfirmPassword ? 'text' : 'password'}
-                                                    onChange={
-                                                        (e) => setConfirmPassword(e.target.value)
-                                                    }
-                                                    endAdornment={
-                                                        <InputAdornment position="end">
-                                                            <IconButton
-                                                                aria-label="toggle password visibility"
-                                                                onClick={() => handleClickShowPassword("confirmPassword")}
-                                                                onMouseDown={handleMouseDownPassword}
-                                                                edge="end"
-                                                            >
-                                                                {showConfirmPassword ? <VisibilityOff /> : <Visibility />}
-                                                            </IconButton>
-                                                        </InputAdornment>
-                                                    }
-                                                    label="Confirm Password"
-                                                    />
-                                            </FormControl>
-                                        </Grid>
-
                                     </Grid>
-                                    <div>
-                                        <Input sx={{ pt: 5 }} type="file" onChange={(e) => setImage(e.target.files[0])} />
-                                    </div>
+                                    <Input sx={{ pt: 5 }} type="file" onChange={(e) => setImage(e.target.files[0])} />
                                     <div style={{ alignContent: 'center', display: 'flex', justifyContent: 'center', marginTop: 40 }}>
-                                        <Button variant="contained" type='submit' sx={{ backgroundColor: 'green' }}>SUBMIT</Button>
+                                        <Button variant="contained" type='submit' sx={{ backgroundColor: 'green' }} navigate='register property/images'>NEXT</Button>
                                     </div>
-                                </Box>
+                                </form>
                             </Paper>
                         </Container>
                     </React.Fragment>

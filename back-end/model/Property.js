@@ -6,14 +6,26 @@ const PropertySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    phone: {
+    ownersName: {
       type: String,
+      required: true,
+    },
+    bedrooms: {
+      type: Number,
+      required: true,
+    },
+    occupancy: {
+      type: Number,
       required: true,
     },
     email: {
       type: String,
       required: true,
       unique: true,
+    },
+    phone: {
+      type: String,
+      required: true,
     },
     city: {
       type: String,
@@ -23,11 +35,11 @@ const PropertySchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    address1: {
+    street: {
       type: String,
       required: true,
     },
-    password: {
+    address1: {
       type: String,
       required: true,
     },
@@ -36,19 +48,11 @@ const PropertySchema = new mongoose.Schema(
       required: true,
       default: "Pending",
     },
-    image:[
+    image: [
       {
-        type: String
-      }
+        type: String,
+      },
     ],
-    bedrooms:{
-      type: Number,
-      required: true,
-    },
-    occupancy:{
-      type: Number,
-      required: true,
-    }
   },
   {
     timestamps: true,
