@@ -282,7 +282,7 @@ export default function RegistrationForm() {
                                     </Grid>
                                     <Input sx={{ pt: 5 }} type="file" onChange={(e) => setImage(e.target.files[0])} />
                                     <div style={{ alignContent: 'center', display: 'flex', justifyContent: 'center', marginTop: 40 }}>
-                                        <Button variant="contained" type='submit' sx={{ backgroundColor: 'green' }} navigate='register property/images'>NEXT</Button>
+                                        <Button variant="contained" type='submit' sx={{ backgroundColor: 'green' }} href='/image'>NEXT</Button>
                                     </div>
                                 </form>
                             </Paper>

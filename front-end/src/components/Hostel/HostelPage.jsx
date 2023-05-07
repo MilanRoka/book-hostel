@@ -4,8 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { useState } from 'react';
 import Searchbar from '../Navbar/Searchbar';
-
-import { Box, Button, FormControl, InputLabel } from '@mui/material';
+import { Box, Button, FormControl, InputLabel, Typography } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 import { useTheme } from '@mui/material/styles';
 import OutlinedInput from '@mui/material/OutlinedInput';
@@ -14,13 +13,48 @@ import Select from '@mui/material/Select';
 import { getDistrict } from '../Api/location/location';
 import { getPackage } from '../Api/package/package';
 import { Tabs, Tab } from '@mui/material';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
 
 
-const images = [
-  { url: "public/card1.jpg" },
-  { url: "public/card2.jpg" },
-  { url: "public/card3.jpg" },
-  { url: "public/card4.jpg" },
+const itemData = [
+  {
+    img: 'https://images.unsplash.com/photo-1549388604-817d15aa0110',
+    title: 'Bed',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1525097487452-6278ff080c31',
+    title: 'Books',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1523413651479-597eb2da0ad6',
+    title: 'Sink',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1563298723-dcfebaa392e3',
+    title: 'Kitchen',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1588436706487-9d55d73a39e3',
+    title: 'Blinds',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1574180045827-681f8a1a9622',
+    title: 'Chairs',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1530731141654-5993c3016c77',
+    title: 'Laptop',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1481277542470-605612bd2d61',
+    title: 'Doors',
+  },
+  {
+    img: 'https://images.unsplash.com/photo-1517487881594-2787fef5ebf7',
+    title: 'Coffee',
+  },
+
 ];
 
 const HostelPage = () => {
@@ -173,33 +207,63 @@ const HostelPage = () => {
               <li >
                 Complimentary pick-up and drop-off.
               </li>
-            </div>      
-          
-            <div className="flex flex-col justify-center items-center">
-              <Tabs
-                value={activeTab}
-                onChange={handleTabChange}
-                textColor="secondary"
-                indicatorColor="secondary"
-                aria-label="secondary tabs example"
-              >
-                <Tab label="Section 1" value={0} />
-                <Tab label="Section 2" value={1} />
-                <Tab label="Section 3" value={2} />
-              </Tabs>
-
-              <button
-                onClick={
-                  () => {
-                    navigate('/checkout')
-                  }
-                } className="block w-customBtn bg-green-900 text-white font-bold py-2 px-4 mx-20 mt-10 rounded-lg hover:bg-green-700">
-                Book Now
-              </button>
             </div>
-
+            <button
+              onClick={
+                () => {
+                  navigate('/checkout')
+                }
+              } className="block w-customBtn bg-green-900 text-white font-bold py-2 px-4 mx-20 mt-10 rounded-lg hover:bg-green-700">
+              Book Now
+            </button>
           </div>
         </div>
+
+      </div>
+
+      <div className="flex flex-col justify-center  ">
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          textColor="secondary"
+          indicatorColor="secondary"
+          aria-label="secondary tabs example"
+          className='ml-24'
+        >
+          <Tab label="Facilities" value={0} />
+          <Tab label="Gallery" value={1} />
+          <Tab label="Availability" value={2} />
+        </Tabs>
+
+        <div>
+          <Typography variant="h6" sx={{ paddingTop: 2, paddingX: 11 }}>Our Facilities</Typography>
+          
+        </div>
+
+        <div>
+          <Typography variant="h6" sx={{ paddingTop: 2, paddingX: 11 }}>Gallery</Typography>
+          <Box sx={{ paddingX: 11, paddingTop: 2 }} >
+            <ImageList variant="masonry" cols={5} gap={15}>
+              {itemData.map((item) => (
+                <ImageListItem key={item.img}>
+                  <img
+                    src={`${item.img}?w=248&fit=crop&auto=format`}
+                    srcSet={`${item.img}?w=248&fit=crop&auto=format&dpr=2 2x`}
+                    alt={item.title}
+                    loading="lazy"
+                  />
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Box>
+        </div>
+
+        <div>
+          <Typography variant="h6" sx={{ paddingTop: 2, paddingX: 11 }}>
+            Availability
+          </Typography>
+        </div>
+
       </div>
     </>
   );

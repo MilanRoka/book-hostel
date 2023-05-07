@@ -18,7 +18,6 @@ import '@fontsource/public-sans';
 import SuperAdmin from './components/Dashboard/SuperAdmin';
 import Checkout from './components/Booking/checkout';
 import HostelList from './components/Hostel/HostelList';
-import PropertyDetail from './components/Hostel/PropertyDetail';
 import Image from './components/Hostel/HostelRegistration/Image';
 import Services from './components/Hostel/HostelRegistration/Services';
 
@@ -37,7 +36,6 @@ const App = () => {
                <Route path='/hostels' element={<Hostels />} />
                <Route path='/register property' element={<RegistrationForm />} />
                <Route path='/forgotpw' element={<Forgotpw />} />
-               <Route path='/property-details' element={<PropertyDetail />} />
                <Route path='/dashboard' element={<Dashboard />} />
                <Route element={<Records />} />
                <Route path='/homeitems' element={<Homeitems />} />

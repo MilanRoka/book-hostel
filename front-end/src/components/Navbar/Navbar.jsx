@@ -62,7 +62,6 @@ function Navbar() {
 
                 {isLoggedIn ?
                 <>
-                <Button href="/property-details" key="property-details">Property Details</Button>
 
                   <ButtonGroup key="loggedin-group">
                     <Button onClick={handleLogout} key="logout">Log Out</Button>
